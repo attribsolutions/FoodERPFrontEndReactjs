@@ -82,7 +82,8 @@ export const SUBMIT_ORDER_PAGE = "/Order/AddOrder"
 export const GET_ORDER_LIST = "/Order/GetOrderlistByDivisionID"
 export const EDIT_ORDER_ID ="/Order/GetItemListByDivisionID?DivisionID=3"
 
-
+//PAGES
+export const GET_PAGES = "/HPageMaster/GetPagelist"
 
 //PROJECTS
 export const GET_PROJECTS = "/projects"

@@ -250,6 +250,9 @@ export const getTrashMails = () => get(url.GET_TRASH_MAILS)
 // get starredmail
 export const getDraftMails = () => get(url.GET_DRAFT_MAILS)
 
+//Get Pagemaster
+export const getPages = () => get(url.GET_PAGES)
+
 // get dashboard charts data
 export const getWeeklyData = () => get(url.GET_WEEKLY_DATA)
 export const getYearlyData = () => get(url.GET_YEARLY_DATA)

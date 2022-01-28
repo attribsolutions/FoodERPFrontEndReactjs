@@ -12,6 +12,10 @@ export * from "./invoices/actions"
 //order
 export * from "./OrderPage/actions"
 
+//Start Administrator Module
+export * from "./admin/Pages/actions"
+//End
+
 
 
 

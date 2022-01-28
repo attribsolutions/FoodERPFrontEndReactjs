@@ -13,6 +13,7 @@ import ForgetPwd from "../pages/Authentication/ForgetPassword"
 import OrderPage from "../pages/Sale/OrderPage";
 import OrderList from "../pages/Sale/OrderList";
 import PurchaseOrderList from "../pages/Sale/PurchaseOrderList";
+import PageList from "../pages/Admin/PageList"
 
 
 const userRoutes = [
@@ -28,7 +29,9 @@ const userRoutes = [
   { path: "/orderList", component: OrderList },
   { path: "/porderList", component: PurchaseOrderList },
 
-
+  //admin
+  //pages
+  { path: "/pageList", component: PageList },
 
   // this route should be at the end of all other routes
   { path: "/", exact: true, component: () => <Redirect to="/dashboard" /> },

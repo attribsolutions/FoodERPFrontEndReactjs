@@ -9,6 +9,9 @@ import LayoutSaga from "./layout/saga"
 import invoiceSaga from "./invoices/saga"
 import orderSaga from "./OrderPage/saga"
 
+//Start Administrator Module
+import PagesSaga from "./admin/Pages/saga"
+//End
 
 export default function* rootSaga() {
   yield all([
@@ -20,8 +23,6 @@ export default function* rootSaga() {
     fork(LayoutSaga),
     fork(invoiceSaga),
     fork(orderSaga),
-
-
-   
+    fork(PagesSaga),
   ])
 }
