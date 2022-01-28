@@ -184,10 +184,13 @@ export const getInvoiceDetail = id =>
 export const getOrderPage = () => get(url.GET_ORDER)
 export const submitOrderPage = (data) => post(url.SUBMIT_ORDER_PAGE, data)
 //Edit Order
-export const editOrderID = (id) => get(url.EDIT_ORDER_ID)
+export const editOrderID = (id) => get(`${url.EDIT_ORDER_ID}=${id}`)
 //Order List
 export const getOrderList = (data) => getModify(`${url.GET_ORDER_LIST}?FromDate=${data['FromDate']}&ToDate=${data['ToDate']}&CustomerID=${data['CustomerID']}&DivisionID=${data['DivisionID']}`)
 export const getDivisionOrders = () => get(`${url.GET_ORDER_LIST}?FromDate=2022-01-25&ToDate=2022-01-25&CustomerID=0&DivisionID=3`)
+
+export const putUpdateOrder = (data) => put(url.PUT_UPDATE_ORDER, data)
+
 
 // get project
 export const getProjects = () => get(url.GET_PROJECTS)

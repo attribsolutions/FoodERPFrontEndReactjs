@@ -9,7 +9,9 @@ import{
     GET_ORDER_PAGE,
     GET_ORDER_PAGE_SUCCESS,
     SUBMIT_ORDER_PAGE,
-    SUBMIT_ORDER_PAGE_SUCCESS
+    SUBMIT_ORDER_PAGE_SUCCESS,
+    UPDATE_ORDER,
+    UPDATE_ORDER_SUCCESS
 }from './actionType'
 
 export const getOrderPage = () => ({
@@ -61,4 +63,14 @@ export const getOrderPage = () => ({
       type: GET_DIVISIONORDER_LIST_SUCCESS,
       payload: orders,
     })
+    export const updateOrder = (updateData) => ({
+      type: UPDATE_ORDER,
+      updateData,
+      });
+  
+      export const updateOrderSuccess = updateMessage => ({
+        type:UPDATE_ORDER_SUCCESS,
+        payload: updateMessage,
+      })
+
   
