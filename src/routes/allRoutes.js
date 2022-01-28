@@ -25,8 +25,8 @@ const userRoutes = [
 
   //OrderPage Path
   { path: "/order", component: OrderPage },
-  { path: "/porderList", component: OrderList },
-  { path: "/orderList", component: PurchaseOrderList },
+  { path: "/orderList", component: OrderList },
+  { path: "/porderList", component: PurchaseOrderList },
 
 
 
