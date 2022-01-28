@@ -41,7 +41,7 @@ const OrderPage = (props) => {
       FromDate: !fromDate ? fromDateIn : fromDate,
       ToDate: !toDate ? currentDate : toDate,
       CustomerID: 0,
-      DivisionID: 3
+      DivisionID: 3,
     };
     dispatch(getOrderList(orderlistInitial));
   },[dispatch,fromDateIn,fromDate,currentDate,toDate]);
