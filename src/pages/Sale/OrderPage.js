@@ -13,14 +13,14 @@ import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 
 // store action import
-import { getOrderPage, submitOrderPage, editOrder } from "../../store/actions";
+import { getOrderPage, submitOrderPage, editOrder, editOrderSuccess } from "../../store/actions";
 import { useSelector, useDispatch } from "react-redux";
+import { put } from "redux-saga/effects";
 
 const OrderPage = (props) => {
   var itemgroups = "";
 
   const dispatch = useDispatch();
-  console.log("props", props.location.state);
   const current = new Date();
   const month = current.getMonth() + 1;
   const currentDate = `${current.getFullYear()}-${
@@ -31,20 +31,18 @@ const OrderPage = (props) => {
 
   useEffect(() => {
     if (props.location.state === undefined) {
+      put(editOrderSuccess({Items:[]}));
     } else {
-      // console.log("props1",props.location.state)
       dispatch(editOrder(props.location.state.orderId));
     }
     dispatch(getOrderPage());
-  }, [dispatch]);
+  }, [dispatch,props.location.state]);
 
   const { orders, editOrderData, EditOrder } = useSelector((state) => ({
     orders: state.orders.orders,
     editOrderData: state.orders.editOrderData.Items,
     EditOrder: state.orders.editOrderData,
   }));
-  console.log("editOrderData :", editOrderData);
-  console.log("EditOrder :", EditOrder);
 
   const saveHandeller = () => {
     var abc = [];
@@ -66,26 +64,32 @@ const OrderPage = (props) => {
         abc.push(abc1);
       }
     }
-    const requestOptions = {
-      body: JSON.stringify({
-        CustomerID: 13,
-        OrderDate: !orderDate ? currentDate : orderDate,
-        CompanyID: 1,
-        DivisionID: 3,
-        ExpectedDeliveryDate: !orderDate ? currentDate : orderDate,
-        CreatedOn: !orderDate ? currentDate : orderDate,
-        UpdatedBy: 1,
-        UpdatedOn: !orderDate ? currentDate : orderDate,
-        OrderitemInfo: abc,
-      }),
-    };
-    // console.log("requestOptions", requestOptions.body);
-    dispatch(submitOrderPage(requestOptions.body));
+   
+    if (!abc.length<=0) {
+      const requestOptions = {
+        body: JSON.stringify({
+          CustomerID: 13,
+          OrderDate: !orderDate ? currentDate : orderDate,
+          CompanyID: 1,
+          DivisionID: 3,
+          ExpectedDeliveryDate: !orderDate ? currentDate : orderDate,
+          CreatedOn: !orderDate ? currentDate : orderDate,
+          UpdatedBy: 1,
+          UpdatedOn: !orderDate ? currentDate : orderDate,
+          OrderitemInfo: abc,
+        }),
+      };
+      alert(requestOptions.body);
+      alert('Order is save...!')
+      dispatch(submitOrderPage(requestOptions.body)); 
+    } else {
+      alert('warring: *field can not filed blank...!')
+    }
+    
   };
 
   function handleKeyDown(e) {
     var cont = e.target.id;
-
     var abc = cont.split("y");
     cont = abc[1];
     if (e.keyCode === 40) {
@@ -97,20 +101,6 @@ const OrderPage = (props) => {
       document.getElementById("txtqty" + cont).focus();
     }}
  
-  const QtValueHandller=(id)=>{
-    var qat = "";
-    editOrderData.map((i, k) => {
-      if(id ===i.ItemID) {   qat=i.Qauntity }
-    })
-    return qat
-  }
-  const ComValueHandeller=(id)=>{
-    var com = "";
-    editOrderData.map((i, k) => {
-      if(id ===i.ItemID) {   com=i.Comment }
-    })
-    return com
-  }
   
   return (
     <React.Fragment>
@@ -121,8 +111,8 @@ const OrderPage = (props) => {
               <Card>
                 <CardHeader>
                   <CardSubtitle>
-                    <div class="row">
-                      <div class="col-lg-2">
+                    <div className="row">
+                      <div className="col-lg-2">
                         <Input
                           className="form-control"
                           type="date"
@@ -130,12 +120,11 @@ const OrderPage = (props) => {
                           onChange={(e) => {
                             setOrderDate(e.target.value);
                           }}
-                          on
                           id="example-date-input"
                         />
                       </div>
-                      <div class="col-lg-9"></div>
-                      <div class="col-lg-1">
+                      <div className="col-lg-9"></div>
+                      <div className="col-lg-1">
                         <Button
                           className="btn btn-success "
                           onClick={() => {
@@ -197,7 +186,7 @@ const OrderPage = (props) => {
                                     type="hidden"
                                     id={"lblItemID" + key}
                                     name={"lblItemID" + key}
-                                    value={item.ItemID}
+                                    defaultValue={item.ItemID}
                                   />
                                 </Td>
                                 <Td>
@@ -206,22 +195,22 @@ const OrderPage = (props) => {
                                     id={"txtqty" + key}
                                     key={item.ItemID}
                                     // value={QtValueHandller(item.ItemID)}
-                                    value={qat}
+                                    defaultValue={qat}
                                     onKeyDown={(e) => {
                                       handleKeyDown(e);
                                     }}
-                                    class="form-control form-control-sm"
+                                    className="form-control form-control-sm"
                                     autoComplete="false"
                                   />
                                 </Td>
                                 <Td>
                                   <select
-                                    classNamePrefix="select2-selection"
+                                    // classNamePrefix="select2-selection"
                                     id={"ddlUnit" + key}
                                   >
                                     {item.ItemUnits.map((units, key) => {
                                       return (
-                                        <option value={units.UnitID}>
+                                        <option defaultValue={units.UnitID}>
                                           {units.UnitName}
                                         </option>
                                       );
@@ -232,10 +221,10 @@ const OrderPage = (props) => {
                                   {" "}
                                   <input
                                     type="text"
-                                    value={com}
+                                    defaultValue={com}
                                     // value={ComValueHandeller(item.ItemID)}
                                     id={"comment" + key}
-                                    class="form-control form-control-sm"
+                                    className="form-control form-control-sm"
                                     autoComplete="false"
                                   />
                                 </Td>

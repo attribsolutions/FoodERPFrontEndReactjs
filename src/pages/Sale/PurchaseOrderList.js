@@ -4,7 +4,6 @@ import { Button, Input } from "reactstrap";
 import Select from "react-select";
 import { useHistory } from "react-router-dom";
 import {
-    
   Row,
   Col,
   Card,
@@ -18,11 +17,11 @@ import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 
 // store action import
 import { getOrderList } from "../../store/actions";
-import OrderList from "./OrderList";
+
 
 const PurchaseOrderList = (props) => {
   const dispatch = useDispatch();
-const history =useHistory();
+  const history = useHistory();
   const current = new Date();
   const month = current.getMonth() + 1;
 
@@ -32,19 +31,20 @@ const history =useHistory();
 
   const fromDateIn = `${current.getFullYear()}-${
     month < 10 ? `0${month}` : `${month}`
-  }-${current.getDate() - 3}`;
+  }-${current.getDate() }`;
 
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
   useEffect(() => {
     const orderlistInitial = {
-      FromDate: !fromDate ? fromDateIn : fromDate,
-      ToDate: !toDate ? currentDate : toDate,
+      FromDate:fromDateIn,// !fromDate ? fromDateIn : fromDate,
+      ToDate:currentDate, //!toDate ? currentDate : toDate,
       CustomerID: 0,
       DivisionID: 3,
     };
     dispatch(getOrderList(orderlistInitial));
-  }, [dispatch, fromDateIn, fromDate, currentDate, toDate]);
+    console.log("useEffect")
+  }, [dispatch, ]);
 
   const orders = props.orderList;
 
@@ -81,8 +81,7 @@ const history =useHistory();
                           onChange={(e) => {
                             setFromDate(e.target.value);
                           }}
-                          on
-                          id="example-date-input"
+                         id="example-date-input"
                         />
                       </div>
                       <div className="col-lg-1">
@@ -96,7 +95,7 @@ const history =useHistory();
                           onChange={(e) => {
                             setToDate(e.target.value);
                           }}
-                          on
+                         
                           id="example-date-input"
                         />
                       </div>
@@ -150,14 +149,16 @@ const history =useHistory();
                                 <Td>{item.OrderType}</Td>
                                 <Td>{item.Name}</Td>
                                 <Td>
-                                <buton className="badge badge-soft-primary font-size-12"
-                                onClick={()=>{
-                                        history.push({
-                                            pathname: '/order',
-                                            // search: '?query=abc',
-                                            state: { orderId:item.OrderID }
-                                          })
-                               }}>
+                                  <buton
+                                    className="badge badge-soft-primary font-size-12"
+                                    onClick={() => {
+                                      history.push({
+                                        pathname: "/order",
+                                        // search: '?query=abc',
+                                        state: { orderId: item.OrderID },
+                                      });
+                                    }}
+                                  >
                                     Edit
                                   </buton>
                                 </Td>
