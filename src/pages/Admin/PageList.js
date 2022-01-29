@@ -13,7 +13,7 @@ import Breadcrumbs from "../../components/Common/Breadcrumb";
 
 import paginationFactory, {
     PaginationListStandalone,
-    PaginationProvider,
+    PaginationProvider,SizePerPageDropdownStandalone,
 } from "react-bootstrap-table2-paginator";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import BootstrapTable from "react-bootstrap-table-next";
@@ -25,21 +25,21 @@ const PagesList = () => {
     const dispatch = useDispatch();
     const { SearchBar } = Search;
 
-   
+
     useEffect(() => {
-    //   const orderlistInitial = {
-    //     FromDate: '2022-01-25',
-    //     ToDate: '2022-01-25',
-    //     CustomerID: 0,
-    //     DivisionID: 3
-    //   }; 
+        //   const orderlistInitial = {
+        //     FromDate: '2022-01-25',
+        //     ToDate: '2022-01-25',
+        //     CustomerID: 0,
+        //     DivisionID: 3
+        //   }; 
         dispatch(onGetPages());
     }, [dispatch]);
     const { pages } = useSelector((state) => ({
-      pages: state.Pages.pages.data,
+        pages: state.Pages.pages.data,
     }));
     //const pages=[] ;
-//    console.log("bj="+pages);
+    //    console.log("bj="+pages);
 
     const pageOptions = {
         sizePerPage: 15,
@@ -49,7 +49,7 @@ const PagesList = () => {
 
     const defaultSorted = [
         {
-            dataField: "ID", // if dataField is not match to any column you defined, it will be ignored.
+            dataField: "ModuleName", // if dataField is not match to any column you defined, it will be ignored.
             order: "desc", // desc or asc
         },
     ];
@@ -135,23 +135,63 @@ const PagesList = () => {
                                             >
                                                 {toolkitProps => (
                                                     <React.Fragment>
-                                                        <Row className="mb-2">
-                                                            <Col sm="4">
-                                                                <div className="search-box ms-2 mb-2 d-inline-block">
+                                                        <Row className="mb-12">
+                                                            <Col sm="12">
+                                                                <div className="search-box ms-12 mb-12 d-inline-block">
                                                                     <div className="position-relative">
                                                                         <SearchBar {...toolkitProps.searchProps} />
                                                                         <i className="bx bx-search-alt search-icon-search" />
                                                                     </div>
                                                                 </div>
+
                                                             </Col>
                                                         </Row>
                                                         <Row>
                                                             <Col xl="12">
                                                                 <div className="table-responsive">
                                                                     <BootstrapTable
+                                                                        keyField={"id"}
+                                                                        responsive
+                                                                        bordered={false}
+                                                                        striped={false}
+                                                                        defaultSorted={defaultSorted}
+                                                                        // selectRow={selectRow}
+                                                                        classes={
+                                                                            "table align-middle table-nowrap"
+                                                                        }
+                                                                        headerWrapperClasses={"thead-light"}
                                                                         {...toolkitProps.baseProps}
                                                                         {...paginationTableProps}
-                                                                        // selectRow={selectRow}
+                                                                    />
+
+                                                                </div>
+                                                            </Col>
+                                                        </Row>
+
+                                                        <Row className="align-items-md-center mt-30">
+                                                            <Col className="inner-custom-pagination d-flex">
+                                                                <div className="d-inline">
+                                                                    <SizePerPageDropdownStandalone
+                                                                        {...paginationProps}
+                                                                    />
+                                                                </div>
+                                                                <div className="text-md-right ms-auto">
+                                                                    <PaginationListStandalone
+                                                                        {...paginationProps}
+                                                                    />
+                                                                </div>
+                                                            </Col>
+                                                           
+                                                        </Row>
+                                                        <br></br>
+                                                          
+                                                        {/* <Row>
+                                                            <Col xl="12">
+                                                                <div className="table-responsive">
+                                                                    <BootstrapTable
+                                                                        {...toolkitProps.baseProps}
+                                                                        {...paginationTableProps}
+                                                                        
                                                                         defaultSorted={defaultSorted}
                                                                         classes={
                                                                             "table align-middle table-nowrap table-bordered table-sm m-0 table"
@@ -169,7 +209,7 @@ const PagesList = () => {
                                                                     {...paginationProps}
                                                                 />
                                                             </Col>
-                                                        </Row>
+                                                        </Row> */}
                                                     </React.Fragment>
                                                 )}
                                             </ToolkitProvider>
