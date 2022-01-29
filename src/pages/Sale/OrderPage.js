@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,} from "react";
+import { useHistory } from "react-router-dom";
+import MetaTags from "react-meta-tags";
+import Breadcrumbs from "../../components/Common/Breadcrumb";
 import { Button, Input } from "reactstrap";
 import {
   Row,
@@ -13,13 +16,13 @@ import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 
 // store action import
-import { getOrderPage, submitOrderPage, editOrder, editOrderSuccess } from "../../store/actions";
-import { useSelector, useDispatch } from "react-redux";
-import { put } from "redux-saga/effects";
+import { getOrderPage,  editOrder,  updateOrder, submitOrderPage } from "../../store/actions";
+import { useSelector, useDispatch, } from "react-redux";
+
 
 const OrderPage = (props) => {
   var itemgroups = "";
-
+  const history = useHistory();
   const dispatch = useDispatch();
   const current = new Date();
   const month = current.getMonth() + 1;
@@ -28,30 +31,35 @@ const OrderPage = (props) => {
   }-${current.getDate()}`;
 
   const [orderDate, setOrderDate] = useState("");
+  const [mode, setMode] = useState(null);
+  
+  if (props.location.state === undefined && mode===null) {
+    setMode("save")
+    dispatch(editOrder(0));
+  } 
 
   useEffect(() => {
     if (props.location.state === undefined) {
-      put(editOrderSuccess({Items:[]}));
-    } else {
+    }else{
       dispatch(editOrder(props.location.state.orderId));
     }
     dispatch(getOrderPage());
-  }, [dispatch,props.location.state]);
+    
+  }, []);
 
   const { orders, editOrderData, EditOrder } = useSelector((state) => ({
     orders: state.orders.orders,
-    editOrderData: state.orders.editOrderData.Items,
+    editOrderData: state.orders.editOrderData.orderItemInfo,
     EditOrder: state.orders.editOrderData,
   }));
 
-  const saveHandeller = () => {
+  const saveHandeller = (modes) => {
     var abc = [];
     for (var i = 0; i < orders.length - 1; i++) {
       let qty = document.getElementById("txtqty" + i).value;
       if (qty > 0) {
         var itemid = document.getElementById("lblItemID" + i).value;
         var UnitID = document.getElementById("ddlUnit" + i).value;
-        // var ItemName = document.getElementById("lblItemName" + i).innerText;
         var comments = document.getElementById("comment" + i).value;
         var abc1 = {
           OrderId: 0,
@@ -80,12 +88,24 @@ const OrderPage = (props) => {
         }),
       };
       alert(requestOptions.body);
-      alert('Order is save...!')
-      dispatch(submitOrderPage(requestOptions.body)); 
-    } else {
-      alert('warring: *field can not filed blank...!')
-    }
     
+     if (modes) {
+      dispatch(updateOrder(requestOptions.body)); 
+      alert('Order is Update...!')
+      history.push({
+        pathname:"/order",})
+
+     } else {
+      dispatch(submitOrderPage(requestOptions.body));  
+      alert('Order is save...!')
+      history.push({
+        pathname:"/order",})
+
+     } 
+    } else {
+      alert('warnings: field can not  blank...!')
+    }
+   
   };
 
   function handleKeyDown(e) {
@@ -106,6 +126,7 @@ const OrderPage = (props) => {
     <React.Fragment>
       <div className="page-content">
         <Container fluid>
+        <Breadcrumbs title={"count :"+orders.length} breadcrumbItem="Order Page " />
           <Row>
             <Col>
               <Card>
@@ -125,14 +146,21 @@ const OrderPage = (props) => {
                       </div>
                       <div className="col-lg-9"></div>
                       <div className="col-lg-1">
-                        <Button
+                      {mode===null?<Button
                           className="btn btn-success "
                           onClick={() => {
-                            saveHandeller();
+                            saveHandeller(true);
                           }}
                         >
-                          Save{" "}
-                        </Button>
+                          Update
+                        </Button>:  <button
+                         className="btn btn-primary" type="button"
+                          onClick={() => {
+                            saveHandeller(false);
+                          }}
+                        >
+                          Save
+                        </button>}
                       </div>
                     </div>
                   </CardSubtitle>
@@ -160,8 +188,10 @@ const OrderPage = (props) => {
                           {orders.map((item, key) => {
                              var com = "";
                              var qat='';
+                             var unitId="kg"
                              editOrderData.map((i, k) => {
-                               if(item.ItemID ===i.ItemID) {   com=i.Comment; qat=i.Qauntity }
+                               if(item.ItemID ===i.ItemID) {   com=i.Comments;
+                                unitId=i.UnitID; qat=i.Quantity }
                              })
                             return (
                               <Tr>
@@ -205,12 +235,11 @@ const OrderPage = (props) => {
                                 </Td>
                                 <Td>
                                   <select
-                                    // classNamePrefix="select2-selection"
                                     id={"ddlUnit" + key}
                                   >
                                     {item.ItemUnits.map((units, key) => {
                                       return (
-                                        <option defaultValue={units.UnitID}>
+                                        <option defaultValue={unitId?unitId:units.UnitID}>
                                           {units.UnitName}
                                         </option>
                                       );
@@ -218,11 +247,9 @@ const OrderPage = (props) => {
                                   </select>
                                 </Td>
                                 <Td>
-                                  {" "}
                                   <input
                                     type="text"
                                     defaultValue={com}
-                                    // value={ComValueHandeller(item.ItemID)}
                                     id={"comment" + key}
                                     className="form-control form-control-sm"
                                     autoComplete="false"

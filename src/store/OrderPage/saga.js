@@ -4,6 +4,7 @@ import {
   getOrderPageSuccess,
   getDivisionOrdersSuccess,
   editOrderSuccess,
+  updateOrderSuccess,
 } from "./actions";
 import {
   getOrderList,
@@ -11,6 +12,7 @@ import {
   submitOrderPage,
   getDivisionOrders,
   editOrderID,
+  putUpdateOrder,
 } from "../../helpers/fakebackend_helper";
 import {
   GET_ORDER_LIST,
@@ -18,8 +20,8 @@ import {
   SUBMIT_ORDER_PAGE,
   GET_DIVISIONORDER_LIST,
   EDIT_ORDER,
+  UPDATE_ORDER,
 } from "./actionType";
-import  ItemUnits  from "./DemoData";
 function* fetchOrdedr() {
   try {
     const response = yield call(getOrderPage);
@@ -58,13 +60,16 @@ function* fetchOrderList({ listData }) {
   }
 }
 function* EditOrder({ orderId }) {
+ 
   try {
-     yield console.log('$$EditOrder page  before response$',orderId)
+    //  yield console.log('$$EditOrder page  before response$',orderId)
+     if(orderId===0){
+      yield put(editOrderSuccess({orderItemInfo:[]}));
+  }else{
     const response = yield call(editOrderID, orderId);
-    yield console.log("$$EditOrder page  after response$", response);
-    yield console.log("$$EditOrder page  after ItemUnits$", ItemUnits);
-
-    yield put(editOrderSuccess(ItemUnits));
+    // yield console.log("$$EditOrder page  after response$", response);
+    yield put(editOrderSuccess(response.data));
+    }
   } catch (error) {
     console.log("$$EditOrder order_saga_page  #@ error$", error);
   }
@@ -80,11 +85,25 @@ function* fetchDisvisionOrder() {
   }
 }
 
+function* updateOrder({updateData}) {
+  try {
+    yield console.log("$$updateOrder   after response$", updateData);
+
+    const response = yield call(putUpdateOrder,updateData);
+    yield console.log("$$updateOrder   after response$", response);
+    yield put(updateOrderSuccess(response));
+  } catch (error) {
+    console.log("$$ updateOrder saga  #@ error$", error);
+  }
+}
+
 function* orderSaga() {
   yield takeEvery(GET_ORDER_PAGE, fetchOrdedr);
   yield takeEvery(SUBMIT_ORDER_PAGE, submitOrder);
   yield takeEvery(GET_ORDER_LIST, fetchOrderList);
   yield takeEvery(EDIT_ORDER, EditOrder);
+  yield takeEvery(UPDATE_ORDER, updateOrder);
+
 
 
   // yield takeEvery(GET_ORDER_LIST_SUCCESS , fetchOrderList)
