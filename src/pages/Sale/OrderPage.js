@@ -177,7 +177,6 @@ const OrderPage = (props) => {
                       >
                         <Thead>
                           <Tr>
-                            <Th data-priority="1">Itemgroup Name</Th>
                             <Th data-priority="1">Item Name</Th>
                             <Th data-priority="3">Quantity</Th>
                             <Th data-priority="1">UOM</Th>
@@ -199,13 +198,17 @@ const OrderPage = (props) => {
                                   {item.ItemGroup === itemgroups ? (
                                     ""
                                   ) : (
-                                    <label className="btn btn-secondary btn-sm waves-effect waves-light">
+                                   <div> <label className="btn btn-secondary btn-sm waves-effect waves-light">
                                       {item.ItemGroup}
+                                    </label>
+                                    <label className="btn btn-secondary btn-sm waves-effect waves-light" hidden>
+                                    
                                       {(itemgroups = item.ItemGroup)}
                                     </label>
+                                    </div>
                                   )}
-                                </Td>
-                                <Td>
+                                {/* </Td>
+                                <Td> */}
                                   <label
                                     id={"lblItemName" + key}
                                     name={"lblItemName" + key}

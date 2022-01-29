@@ -15,6 +15,9 @@ import Profile from "./auth/profile/reducer"
 import invoices from "./invoices/reducer"
 import orders from './OrderPage/reducer'
 
+//Start Administrator Module
+import Pages from "./admin/Pages/reducer"
+//End
 
 
 
@@ -27,6 +30,7 @@ const rootReducer = combineReducers({
   Profile,
   invoices,
  orders,
+ Pages,
 
 })
 

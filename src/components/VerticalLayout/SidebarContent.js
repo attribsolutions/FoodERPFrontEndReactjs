@@ -111,6 +111,20 @@ const SidebarContent = (props) => {
             <li>
               <Link to="/#" className="has-arrow">
                 <FeatherIcon icon="grid" />
+                <span>{props.t("Administrator")}</span>
+              </Link>
+              <ul className="sub-menu">
+                <li>
+                  <Link to="/pageList">{props.t("Page List")}</Link>
+                </li>
+                {/* <li>
+                  <Link to="/orderList">{props.t("Order List")}</Link>
+                </li> */}
+              </ul>
+            </li>
+            <li>
+              <Link to="/#" className="has-arrow">
+                <FeatherIcon icon="grid" />
                 <span>{props.t("Apps")}</span>
               </Link>
               <ul className="sub-menu">

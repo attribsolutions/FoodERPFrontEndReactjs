@@ -11,12 +11,15 @@ const Breadcrumb = props => {
           <h4 className="mb-0 font-size-18">{props.breadcrumbItem}</h4>
           <div className="page-title-right">
             <ol className="breadcrumb m-0">
-              <BreadcrumbItem>
+            <h6>{props.title}<code>({props.breadcrumbCount})</code></h6>
+              {/* <BreadcrumbItem>
                 <Link to="#">{props.title}</Link>
-              </BreadcrumbItem>
-              <BreadcrumbItem active>
+                 <Link to="#"><code></code></Link>
+              </BreadcrumbItem> */}
+              {/* <BreadcrumbItem active>
+                <Link to="#">{props.breadcrumbCount}</Link>
                 <Link to="#">{props.breadcrumbItem}</Link>
-              </BreadcrumbItem>
+              </BreadcrumbItem> */}
             </ol>
           </div>
         </div>

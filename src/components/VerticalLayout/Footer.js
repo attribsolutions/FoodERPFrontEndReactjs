@@ -5,7 +5,7 @@ import { Container, Row, Col } from "reactstrap"
 const Footer = () => {
   return (
     <React.Fragment>
-      <footer className="footer">
+      {/* <footer className="footer">
         <Container fluid={true}>
           <Row>
             <Col md={6}>{new Date().getFullYear()} © Minia.</Col>
@@ -19,7 +19,7 @@ const Footer = () => {
             </Col>
           </Row>
         </Container>
-      </footer>
+      </footer> */}
     </React.Fragment>
   )
 }
