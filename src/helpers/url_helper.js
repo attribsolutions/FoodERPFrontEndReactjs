@@ -84,7 +84,8 @@ export const EDIT_ORDER_ID ="/Order/GetOrderByID?OrderID"
 export const PUT_UPDATE_ORDER ="/Order/GetOrderByID?OrderID"
 
 
-
+//PAGES
+export const GET_PAGES = "/HPageMaster/GetPagelist"
 
 //PROJECTS
 export const GET_PROJECTS = "/projects"
