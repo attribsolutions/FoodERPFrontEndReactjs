@@ -16,7 +16,7 @@ import {
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 // store action import
-import { getOrderList } from "../../store/actions";
+import { deleteOrder, getOrderList } from "../../store/actions";
 const OrderList = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -29,10 +29,13 @@ const OrderList = (props) => {
 
   const fromDateIn = `${current.getFullYear()}-${
     month < 10 ? `0${month}` : `${month}`
-  }-${current.getDate()-1 }`;
+  }-${current.getDate() }`;
 
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
+  const [orderDelete, setOrderDelete] = useState(false);
+
+  
   useEffect(() => {
     const orderlistInitial = {
       FromDate:fromDateIn,// !fromDate ? fromDateIn : fromDate,
@@ -41,7 +44,7 @@ const OrderList = (props) => {
       DivisionID: 3,
     };
     dispatch(getOrderList(orderlistInitial));
-  }, []);
+    }, [dispatch,currentDate,fromDateIn,orderDelete]);
 
   const orders = props.orderList;
   const customerNameOption = props.orderList;
@@ -176,7 +179,10 @@ const OrderList = (props) => {
                                   )}
                                 </Td>
                                 <Td>
-                                  <buton className="badge badge-soft-danger font-size-12">
+                                  <buton className="badge badge-soft-danger font-size-12"
+                                  onClick={()=>{dispatch(deleteOrder(item.OrderID));
+                                    setOrderDelete(true);
+                                    alert('deleteOrder')}}>
                                     Delete
                                   </buton>
                                 </Td>
