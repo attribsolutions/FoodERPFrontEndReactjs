@@ -190,7 +190,7 @@ export const getOrderList = (data) => getModify(`${url.GET_ORDER_LIST}?FromDate=
 export const getDivisionOrders = () => get(`${url.GET_ORDER_LIST}?FromDate=2022-01-25&ToDate=2022-01-25&CustomerID=0&DivisionID=3`)
 
 export const putUpdateOrder = (data) => put(url.PUT_UPDATE_ORDER, data)
-
+export const deleteOrderId = (id) => get(`${url.DELETE_ORDER_ID}=${id}`)
 
 // get project
 export const getProjects = () => get(url.GET_PROJECTS)

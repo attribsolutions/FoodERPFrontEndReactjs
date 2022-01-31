@@ -1,4 +1,6 @@
 import{
+  DELETE_ORDER,
+  DELETE_ORDER_SUCCESS,
   EDIT_ORDER,
   EDIT_ORDER_SUCCESS,
   GET_DIVISIONORDER_LIST,
@@ -72,5 +74,14 @@ export const getOrderPage = () => ({
         type:UPDATE_ORDER_SUCCESS,
         payload: updateMessage,
       })
+      export const deleteOrder = (deleteId) => ({
+        type: DELETE_ORDER,
+        deleteId,
+        });
+    
+        export const deleteOrderSuccess = updateMessage => ({
+          type:DELETE_ORDER_SUCCESS,
+          payload: updateMessage,
+        })
 
   
