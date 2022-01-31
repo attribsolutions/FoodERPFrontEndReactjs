@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, connect } from "react-redux";
 import { Button, Input } from "reactstrap";
+import Breadcrumbs from "../../components/Common/Breadcrumb";
 import Select from "react-select";
 import { useHistory } from "react-router-dom";
 import {
@@ -14,11 +15,8 @@ import {
 } from "reactstrap";
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
-
 // store action import
-import { getOrderList } from "../../store/actions";
-
-
+import { deleteOrder, getOrderList } from "../../store/actions";
 const OrderList = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -35,6 +33,9 @@ const OrderList = (props) => {
 
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
+  const [orderDelete, setOrderDelete] = useState(false);
+
+  
   useEffect(() => {
     const orderlistInitial = {
       FromDate:fromDateIn,// !fromDate ? fromDateIn : fromDate,
@@ -43,11 +44,9 @@ const OrderList = (props) => {
       DivisionID: 3,
     };
     dispatch(getOrderList(orderlistInitial));
-    console.log("useEffect")
-  }, [dispatch, ]);
+    }, [dispatch,currentDate,fromDateIn,orderDelete]);
 
   const orders = props.orderList;
-
   const customerNameOption = props.orderList;
 
   function goHandeller() {
@@ -59,11 +58,11 @@ const OrderList = (props) => {
     };
     dispatch(getOrderList(orderlistInitial));
   }
-
   return (
     <React.Fragment>
       <div className="page-content">
         <Container fluid>
+        <Breadcrumbs title={"count :"+orders.length} breadcrumbItem={"Order List "} />
           <Row>
             <Col>
               <Card>
@@ -95,7 +94,6 @@ const OrderList = (props) => {
                           onChange={(e) => {
                             setToDate(e.target.value);
                           }}
-                         
                           id="example-date-input"
                         />
                       </div>
@@ -153,7 +151,8 @@ const OrderList = (props) => {
                                     className="badge badge-soft-primary font-size-12"
                                     onClick={() => {
                                       history.push({
-                                        pathname: "/order",
+                                        pathname:"/order",
+                                        // pathname: "/order?OrderID="+item.OrderID,
                                         // search: '?query=abc',
                                         state: { orderId: item.OrderID },
                                       });
@@ -180,8 +179,10 @@ const OrderList = (props) => {
                                   )}
                                 </Td>
                                 <Td>
-                                  {" "}
-                                  <buton className="badge badge-soft-danger font-size-12">
+                                  <buton className="badge badge-soft-danger font-size-12"
+                                  onClick={()=>{dispatch(deleteOrder(item.OrderID));
+                                    setOrderDelete(true);
+                                    alert('deleteOrder')}}>
                                     Delete
                                   </buton>
                                 </Td>
@@ -192,7 +193,6 @@ const OrderList = (props) => {
                               </Tr>
                             );
                           })}
-                          {/* { message} */}
                         </Tbody>
                       </Table>
                     </div>

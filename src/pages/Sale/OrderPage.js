@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import MetaTags from "react-meta-tags";
+import Breadcrumbs from "../../components/Common/Breadcrumb";
 import { Button, Input } from "reactstrap";
 import {
   Row,
@@ -13,13 +16,17 @@ import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 
 // store action import
-import { getOrderPage, submitOrderPage, editOrder, editOrderSuccess } from "../../store/actions";
+import {
+  getOrderPage,
+  editOrder,
+  updateOrder,
+  submitOrderPage,
+} from "../../store/actions";
 import { useSelector, useDispatch } from "react-redux";
-import { put } from "redux-saga/effects";
 
 const OrderPage = (props) => {
   var itemgroups = "";
-
+  const history = useHistory();
   const dispatch = useDispatch();
   const current = new Date();
   const month = current.getMonth() + 1;
@@ -28,33 +35,38 @@ const OrderPage = (props) => {
   }-${current.getDate()}`;
 
   const [orderDate, setOrderDate] = useState("");
+  const [mode, setMode] = useState(null);
+
+  if (props.location.state === undefined && mode === null) {
+    setMode("save");
+    dispatch(editOrder(0));
+  }
 
   useEffect(() => {
     if (props.location.state === undefined) {
-      put(editOrderSuccess({Items:[]}));
     } else {
       dispatch(editOrder(props.location.state.orderId));
     }
     dispatch(getOrderPage());
-  }, [dispatch,props.location.state]);
+  }, []);
 
   const { orders, editOrderData, EditOrder } = useSelector((state) => ({
     orders: state.orders.orders,
-    editOrderData: state.orders.editOrderData.Items,
+    editOrderData: state.orders.editOrderData.orderItemInfo,
     EditOrder: state.orders.editOrderData,
   }));
-
-  const saveHandeller = () => {
+  console.log("orderid", EditOrder);
+  const saveHandeller = (modes) => {
     var abc = [];
     for (var i = 0; i < orders.length - 1; i++) {
       let qty = document.getElementById("txtqty" + i).value;
       if (qty > 0) {
         var itemid = document.getElementById("lblItemID" + i).value;
-        var UnitID = document.getElementById("ddlUnit" + i).value;
-        // var ItemName = document.getElementById("lblItemName" + i).innerText;
+        var UnitID = document.getElementById("ddlUnit" + i).defaultvalue;
         var comments = document.getElementById("comment" + i).value;
+        console.log("unitIdddd", UnitID);
         var abc1 = {
-          OrderId: 0,
+          OrderId: props.location.state === undefined ? 0 : EditOrder.OrderID,
           ItemID: itemid,
           Quantity: qty,
           UnitID: UnitID,
@@ -64,11 +76,12 @@ const OrderPage = (props) => {
         abc.push(abc1);
       }
     }
-   
-    if (!abc.length<=0) {
+
+    if (!abc.length <= 0) {
       const requestOptions = {
         body: JSON.stringify({
           CustomerID: 13,
+          OrderId: props.location.state === undefined ? 0 : EditOrder.OrderID,
           OrderDate: !orderDate ? currentDate : orderDate,
           CompanyID: 1,
           DivisionID: 3,
@@ -80,12 +93,23 @@ const OrderPage = (props) => {
         }),
       };
       alert(requestOptions.body);
-      alert('Order is save...!')
-      dispatch(submitOrderPage(requestOptions.body)); 
+
+      if (modes) {
+        dispatch(updateOrder(requestOptions.body));
+        alert("Order is Update...!");
+        history.push({
+          pathname: "/orderList",
+        });
+      } else {
+        dispatch(submitOrderPage(requestOptions.body));
+        alert("Order is save...!");
+        history.push({
+          pathname: "/orderList",
+        });
+      }
     } else {
-      alert('warring: *field can not filed blank...!')
+      alert("warnings: field can not  blank...!");
     }
-    
   };
 
   function handleKeyDown(e) {
@@ -99,13 +123,18 @@ const OrderPage = (props) => {
     if (e.keyCode === 38 && cont > 0) {
       cont = cont - 1;
       document.getElementById("txtqty" + cont).focus();
-    }}
- 
-  
+    }
+  }
+
+  console.log("editOrderData", editOrderData);
   return (
     <React.Fragment>
       <div className="page-content">
         <Container fluid>
+          <Breadcrumbs
+            title={"count :" + orders.length}
+            breadcrumbItem="Order Page "
+          />
           <Row>
             <Col>
               <Card>
@@ -125,14 +154,26 @@ const OrderPage = (props) => {
                       </div>
                       <div className="col-lg-9"></div>
                       <div className="col-lg-1">
-                        <Button
-                          className="btn btn-success "
-                          onClick={() => {
-                            saveHandeller();
-                          }}
-                        >
-                          Save{" "}
-                        </Button>
+                        {mode === null ? (
+                          <Button
+                            className="btn btn-success "
+                            onClick={() => {
+                              saveHandeller(true);
+                            }}
+                          >
+                            Update
+                          </Button>
+                        ) : (
+                          <button
+                            className="btn btn-primary"
+                            type="button"
+                            onClick={() => {
+                              saveHandeller(false);
+                            }}
+                          >
+                            Save
+                          </button>
+                        )}
                       </div>
                     </div>
                   </CardSubtitle>
@@ -157,27 +198,36 @@ const OrderPage = (props) => {
                         </Thead>
                         <Tbody>
                           {orders.map((item, key) => {
-                             var com = "";
-                             var qat='';
-                             editOrderData.map((i, k) => {
-                               if(item.ItemID ===i.ItemID) {   com=i.Comment; qat=i.Qauntity }
-                             })
+                            var com = "";
+                            var qat = "";
+                            var unitId = null;
+                            editOrderData.map((i, k) => {
+                              if (item.ItemID === i.ItemID) {
+                                com = i.Comments;
+                                unitId = i.UnitID;
+                                qat = i.Quantity;
+                              }
+                            });
                             return (
                               <Tr>
                                 <Td>
                                   {item.ItemGroup === itemgroups ? (
                                     ""
                                   ) : (
-                                   <div> <label className="btn btn-secondary btn-sm waves-effect waves-light">
-                                      {item.ItemGroup}
-                                    </label>
-                                    <label className="btn btn-secondary btn-sm waves-effect waves-light" hidden>
-                                    
-                                      {(itemgroups = item.ItemGroup)}
-                                    </label>
+                                    <div>
+                                      {" "}
+                                      <label className="btn btn-secondary btn-sm waves-effect waves-light">
+                                        {item.ItemGroup}
+                                      </label>
+                                      <label
+                                        className="btn btn-secondary btn-sm waves-effect waves-light"
+                                        hidden
+                                      >
+                                        {(itemgroups = item.ItemGroup)}
+                                      </label>
                                     </div>
                                   )}
-                                {/* </Td>
+                                  {/* </Td>
                                 <Td> */}
                                   <label
                                     id={"lblItemName" + key}
@@ -194,7 +244,7 @@ const OrderPage = (props) => {
                                 </Td>
                                 <Td>
                                   <input
-                                    type="text"
+                                    type="number"
                                     id={"txtqty" + key}
                                     key={item.ItemID}
                                     // value={QtValueHandller(item.ItemID)}
@@ -207,13 +257,17 @@ const OrderPage = (props) => {
                                   />
                                 </Td>
                                 <Td>
-                                  <select
-                                    // classNamePrefix="select2-selection"
-                                    id={"ddlUnit" + key}
-                                  >
+                                  <select id={"ddlUnit" + key}>
                                     {item.ItemUnits.map((units, key) => {
                                       return (
-                                        <option defaultValue={units.UnitID}>
+                                        <option
+                                          // defaultValue={units.UnitID}
+                                          defaultValue={
+                                            unitId === null
+                                              ? units.UnitID
+                                              : unitId
+                                          }
+                                        >
                                           {units.UnitName}
                                         </option>
                                       );
@@ -221,11 +275,9 @@ const OrderPage = (props) => {
                                   </select>
                                 </Td>
                                 <Td>
-                                  {" "}
                                   <input
                                     type="text"
                                     defaultValue={com}
-                                    // value={ComValueHandeller(item.ItemID)}
                                     id={"comment" + key}
                                     className="form-control form-control-sm"
                                     autoComplete="false"

@@ -28,6 +28,7 @@ const userRoutes = [
   { path: "/order", component: OrderPage },
   { path: "/orderList", component: OrderList },
   { path: "/porderList", component: PurchaseOrderList },
+  // { path: "/order?OrderID", component: OrderPage },
 
   //admin
   //pages

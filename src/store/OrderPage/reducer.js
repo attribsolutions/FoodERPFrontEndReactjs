@@ -5,6 +5,9 @@ import {
      GET_DIVISIONORDER_LIST_SUCCESS,
      GET_ORDER_LIST_MESSAGE,
      EDIT_ORDER_SUCCESS,
+     UPDATE_ORDER_SUCCESS,
+     DELETE_ORDER,
+     DELETE_ORDER_SUCCESS,
     } from "./actionType"
 
 const INIT_STATE = {
@@ -12,7 +15,9 @@ const INIT_STATE = {
     submitOrderSuccess:{},
     orderList:[],
     orderListMessage:[],
-    editOrderData:{Items:[]},
+   updateMessage:[],
+    editOrderData:{orderItemInfo:[]},
+    deleteMessage:{},
 
   }
   
@@ -49,6 +54,17 @@ const INIT_STATE = {
             ...state,
             orders: action.payload,
           }
+          case UPDATE_ORDER_SUCCESS:
+          return {
+            ...state,
+            updateMessage: action.payload,
+          }
+        
+            case DELETE_ORDER_SUCCESS:
+            return {
+              ...state,
+              deleteMessage: action.payload,
+            }
         default:
             return state
         }

@@ -80,7 +80,11 @@ export const GET_INVOICE_DETAIL = "/invoice"
 export const GET_ORDER = "/Order/GetItemListByDivisionID?DivisionID=3"
 export const SUBMIT_ORDER_PAGE = "/Order/AddOrder"
 export const GET_ORDER_LIST = "/Order/GetOrderlistByDivisionID"
-export const EDIT_ORDER_ID ="/Order/GetItemListByDivisionID?DivisionID=3"
+export const EDIT_ORDER_ID ="/Order/GetOrderByID?OrderID"
+export const PUT_UPDATE_ORDER ="/Order/UpdateOrder?OrderID"
+export const DELETE_ORDER_ID ="/Order/deleteOrderUserByID?OrderID"
+
+
 
 //PAGES
 export const GET_PAGES = "/HPageMaster/GetPagelist"

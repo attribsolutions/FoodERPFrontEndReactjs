@@ -32,15 +32,16 @@
 //   octEarningData,
 // } from "../../common/data"
 
-// let users = [
-//   {
-//     uid: 1,
-//     username: "admin",
-//     role: "admin",
-//     password: "123456",
-//     email: "admin@themesbrand.com",
-//   },
-// ]
+ const users = [
+  {
+    uid: 1,
+    username: "admin",
+    role: "admin",
+    password: "123456",
+    email: "admin@themesbrand.com",
+  },
+]
+export default users;
 
 // const fakeBackend = () => {
 //   // This sets the mock adapter on the default instance
