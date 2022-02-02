@@ -85,6 +85,14 @@ export const PUT_UPDATE_ORDER ="/Order/UpdateOrder?OrderID"
 export const DELETE_ORDER_ID ="/Order/deleteOrderUserByID?OrderID"
 
 
+// MasterList
+export const POST_BASE_UNIT ="/MUnits"
+export const GET_ITEM_CATEGORY ="/CItemCategories"
+export const GET_ITEM_SUB_CATEGORY ="/CItemSubCategories"
+export const SUBMIT_ORDER_LIST ="/"
+
+
+
 
 //PAGES
 export const GET_PAGES = "/HPageMaster/GetPagelist"

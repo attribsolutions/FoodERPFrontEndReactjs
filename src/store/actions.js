@@ -17,6 +17,7 @@ export * from "./admin/Pages/actions"
 //End
 
 
+export * from "./Master/actions"
 
 
 

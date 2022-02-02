@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import MetaTags from "react-meta-tags";
 import Breadcrumbs from "../../components/Common/Breadcrumb";
 import { Button, Input } from "reactstrap";
 import {
@@ -29,10 +28,11 @@ const OrderPage = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const current = new Date();
+  const date=current.getDate();
   const month = current.getMonth() + 1;
   const currentDate = `${current.getFullYear()}-${
     month < 10 ? `0${month}` : `${month}`
-  }-${current.getDate()}`;
+  }-${date<10?`0${date}`:`${date}`}`;
 
   const [orderDate, setOrderDate] = useState("");
   const [mode, setMode] = useState(null);
@@ -92,7 +92,7 @@ const OrderPage = (props) => {
           OrderitemInfo: abc,
         }),
       };
-      alert(requestOptions.body);
+      // alert(requestOptions.body);
 
       if (modes) {
         dispatch(updateOrder(requestOptions.body));

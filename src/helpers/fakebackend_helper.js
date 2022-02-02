@@ -1,5 +1,5 @@
 import axios from "axios"
-import { del, get, getModify, post, put } from "./api_helper"
+import { del, get, get1, getModify, post, put } from "./api_helper"
 import * as url from "./url_helper"
 
 // Gets the logged in user data from local session
@@ -182,7 +182,8 @@ export const getInvoiceDetail = id =>
 
 //order Page
 export const getOrderPage = () => get(url.GET_ORDER)
-export const submitOrderPage = (data) => post(url.SUBMIT_ORDER_PAGE, data)
+
+
 //Edit Order
 export const editOrderID = (id) => get(`${url.EDIT_ORDER_ID}=${id}`)
 //Order List
@@ -192,6 +193,12 @@ export const getDivisionOrders = () => get(`${url.GET_ORDER_LIST}?FromDate=2022-
 export const putUpdateOrder = (data) => put(url.PUT_UPDATE_ORDER, data)
 export const deleteOrderId = (id) => get(`${url.DELETE_ORDER_ID}=${id}`)
 
+// MASTER_ LIST
+export const postBaseUnit = () => get1(url.POST_BASE_UNIT)
+export const getItemCategory = () => get1(url.GET_ITEM_CATEGORY)
+
+export const getItemSubCategory = (id) => get1(`${url.GET_ITEM_SUB_CATEGORY}/${id}`)
+export const submitOrderPage = (data) => get1(url.SUBMIT_ORDER_LIST,data)
 // get project
 export const getProjects = () => get(url.GET_PROJECTS)
 

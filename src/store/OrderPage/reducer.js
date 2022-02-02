@@ -6,7 +6,6 @@ import {
      GET_ORDER_LIST_MESSAGE,
      EDIT_ORDER_SUCCESS,
      UPDATE_ORDER_SUCCESS,
-     DELETE_ORDER,
      DELETE_ORDER_SUCCESS,
     } from "./actionType"
 

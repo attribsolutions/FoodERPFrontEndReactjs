@@ -22,20 +22,21 @@ const OrderList = (props) => {
   const history = useHistory();
   const current = new Date();
   const month = current.getMonth() + 1;
+  const date= current.getDate();
 
   const currentDate = `${current.getFullYear()}-${
     month < 10 ? `0${month}` : `${month}`
-  }-${current.getDate()}`;
+  }-${date<10?`0${date}`:`${date}`}`;
 
   const fromDateIn = `${current.getFullYear()}-${
     month < 10 ? `0${month}` : `${month}`
-  }-${current.getDate() }`;
+  }-${date<10?`0${date}`:`${date}`}`;
 
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
   const [orderDelete, setOrderDelete] = useState(false);
 
-  
+  console.log('date',fromDateIn)
   useEffect(() => {
     const orderlistInitial = {
       FromDate:fromDateIn,// !fromDate ? fromDateIn : fromDate,

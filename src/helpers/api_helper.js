@@ -6,9 +6,14 @@ const token = accessToken
 
 //apply base url for axios0
 const API_URL = "http://web.chitalebandhu.in:8080/FoodERPBackEND/api"
+const API_URL1 = "http://192.168.1.114:8000"
+
 
 const axiosApi = axios.create({
   baseURL: API_URL,
+})
+const axiosApi1=axios.create({
+  baseURL: API_URL1,
 })
 
 axiosApi.defaults.headers.common["Authorization"] = token
@@ -50,4 +55,9 @@ export async function del(url, config = {}) {
   return await axiosApi
     .delete(url, { ...config })
     .then(response => response.data)
+}
+
+
+export async function get1(url, config = {}) {
+  return await axiosApi1.get(url, { ...config }).then(response => response.data)
 }
