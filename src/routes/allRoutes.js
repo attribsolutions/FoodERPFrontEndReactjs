@@ -14,6 +14,7 @@ import OrderPage from "../pages/Sale/OrderPage";
 import OrderList from "../pages/Sale/OrderList";
 import PurchaseOrderList from "../pages/Sale/PurchaseOrderList";
 import PageList from "../pages/Admin/PageList"
+import AddItemMaster from "../pages/Master/AddItemMaster";
 
 
 const userRoutes = [
@@ -28,7 +29,7 @@ const userRoutes = [
   { path: "/order", component: OrderPage },
   { path: "/orderList", component: OrderList },
   { path: "/porderList", component: PurchaseOrderList },
-  // { path: "/order?OrderID", component: OrderPage },
+  { path: "/addItemMaster", component: AddItemMaster },
 
   //admin
   //pages

@@ -25,7 +25,6 @@ import {
   UPDATE_ORDER,
   DELETE_ORDER,
 } from "./actionType";
-import { DELETE_ORDER_ID } from "../../helpers/url_helper";
 function* fetchOrdedr() {
   try {
     const response = yield call(getOrderPage);
@@ -39,7 +38,7 @@ function* submitOrder({ data }) {
   try {
      yield console.log('$$submitOrder page  before response$',data)
     const response = yield call(submitOrderPage, data);
-    yield console.log("$$fetchorder page  after response$", response);
+    yield console.log("$$submitOrder page  after response$", response);
     // yield put(submitOrderPageSuccess(response));
   } catch (error) {
     console.log("$$submit order_saga_page  #@ error$", error);
