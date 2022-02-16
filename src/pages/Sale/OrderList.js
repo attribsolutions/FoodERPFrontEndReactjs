@@ -36,7 +36,7 @@ const OrderList = (props) => {
   const [toDate, setToDate] = useState("");
   const [orderDelete, setOrderDelete] = useState(false);
 
-  console.log('date',fromDateIn)
+  // console.log('date',fromDateIn)
   useEffect(() => {
     const orderlistInitial = {
       FromDate:fromDateIn,// !fromDate ? fromDateIn : fromDate,
@@ -160,6 +160,13 @@ const OrderList = (props) => {
                                     }}
                                   >
                                     Edit
+                                  </buton>
+                                  <buton
+                                    className="badge badge-soft-primary font-size-12"
+                                    onClick={() => {
+                                      generate()}}
+                                  >
+                                    Print
                                   </buton>
                                 </Td>
 

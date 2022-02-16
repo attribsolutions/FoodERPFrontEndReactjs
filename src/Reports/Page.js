@@ -15,10 +15,11 @@ function pageFooter(doc) {
     style.reportFooter(doc);
     style.pageFooter(doc);
 }
-export function generate(data) {
+export const generate=(data)=> {
     var doc = new jsPDF('p', 'pt', 'a4');
     pageHeder(doc);
     reportBody(doc, data);
     pageFooter(doc);
     window.open(doc.output('dataurlnewwindow'));
+    return(<></>);
 }
