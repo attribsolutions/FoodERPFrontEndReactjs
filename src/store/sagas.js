@@ -12,6 +12,9 @@ import orderSaga from "./OrderPage/saga"
 //Start Administrator Module
 import PagesSaga from "./admin/Pages/saga"
 import masterSaga from "./Master/saga"
+import moduleIdSaga from "./PageMaster/saga"
+
+
 //End
 
 export default function* rootSaga() {
@@ -26,6 +29,7 @@ export default function* rootSaga() {
     fork(orderSaga),
     fork(PagesSaga),
     fork(masterSaga),
-
+    fork(moduleIdSaga),
+    
   ])
 }

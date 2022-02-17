@@ -27,6 +27,7 @@ const OrderPage = (props) => {
   var itemgroups = "";
   const history = useHistory();
   const dispatch = useDispatch();
+
   const current = new Date();
   const date=current.getDate();
   const month = current.getMonth() + 1;
@@ -50,21 +51,22 @@ const OrderPage = (props) => {
     dispatch(getOrderPage());
   }, []);
 
-  const { orders, editOrderData, EditOrder } = useSelector((state) => ({
+  const { orders, editOrderData, EditOrder,OrderSubmit } = useSelector((state) => ({
     orders: state.orders.orders,
     editOrderData: state.orders.editOrderData.orderItemInfo,
     EditOrder: state.orders.editOrderData,
+    OrderSubmit: state.orders.submitOrderSuccess,
   }));
-  console.log("orderid", EditOrder);
+  // console.log("orderid", EditOrder);
   const saveHandeller = (modes) => {
     var abc = [];
     for (var i = 0; i < orders.length - 1; i++) {
       let qty = document.getElementById("txtqty" + i).value;
       if (qty > 0) {
         var itemid = document.getElementById("lblItemID" + i).value;
-        var UnitID = document.getElementById("ddlUnit" + i).defaultvalue;
+        var UnitID = document.getElementById("ddlUnit" + i).value;
         var comments = document.getElementById("comment" + i).value;
-        console.log("unitIdddd", UnitID);
+        // console.log("unitIdddd", UnitID);
         var abc1 = {
           OrderId: props.location.state === undefined ? 0 : EditOrder.OrderID,
           ItemID: itemid,
@@ -93,16 +95,15 @@ const OrderPage = (props) => {
         }),
       };
       // alert(requestOptions.body);
+      // console.log(requestOptions.body);
 
       if (modes) {
         dispatch(updateOrder(requestOptions.body));
-        alert("Order is Update...!");
         history.push({
           pathname: "/orderList",
         });
       } else {
         dispatch(submitOrderPage(requestOptions.body));
-        alert("Order is save...!");
         history.push({
           pathname: "/orderList",
         });
@@ -110,7 +111,11 @@ const OrderPage = (props) => {
     } else {
       alert("warnings: field can not  blank...!");
     }
+    
   };
+  useEffect(()=>{
+console.log("useEffect",OrderSubmit.error)
+  },[saveHandeller])
 
   function handleKeyDown(e) {
     var cont = e.target.id;
@@ -126,7 +131,7 @@ const OrderPage = (props) => {
     }
   }
 
-  console.log("editOrderData", editOrderData);
+  // console.log("editOrderData", editOrderData);
   return (
     <React.Fragment>
       <div className="page-content">
@@ -261,7 +266,7 @@ const OrderPage = (props) => {
                                     {item.ItemUnits.map((units, key) => {
                                       return (
                                         <option
-                                          // defaultValue={units.UnitID}
+                                         Value={units.UnitID}
                                           defaultValue={
                                             unitId === null
                                               ? units.UnitID

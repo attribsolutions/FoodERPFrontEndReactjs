@@ -15,7 +15,7 @@ function pageFooter(doc) {
     style.reportFooter(doc);
     style.pageFooter(doc);
 }
-export const generate=(data)=> {
+ const generate=(data)=> {
     var doc = new jsPDF('p', 'pt', 'a4');
     pageHeder(doc);
     reportBody(doc, data);
@@ -23,3 +23,4 @@ export const generate=(data)=> {
     window.open(doc.output('dataurlnewwindow'));
     return(<></>);
 }
+export default generate;

@@ -18,6 +18,7 @@ export * from "./admin/Pages/actions"
 
 
 export * from "./Master/actions"
+export * from "./PageMaster/Actions"
 
 
 

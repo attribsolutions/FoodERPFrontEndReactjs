@@ -6,6 +6,7 @@ import {
   editOrderSuccess,
   updateOrderSuccess,
   deleteOrderSuccess,
+  submitOrderPageSuccess,
 } from "./actions";
 import {
   getOrderList,
@@ -36,11 +37,12 @@ function* fetchOrdedr() {
 }
 function* submitOrder({ data }) {
   try {
-     yield console.log('$$submitOrder page  before response$',data)
+    //  yield console.log('$$submitOrder page  before response$',data)
     const response = yield call(submitOrderPage, data);
     yield console.log("$$submitOrder page  after response$", response);
-    // yield put(submitOrderPageSuccess(response));
+    yield put(submitOrderPageSuccess(response));
   } catch (error) {
+    yield put(submitOrderPageSuccess({error}));
     console.log("$$submit order_saga_page  #@ error$", error);
   }
 }
@@ -65,10 +67,10 @@ function* fetchOrderList({ listData }) {
 function* EditOrder({ orderId }) {
  
   try {
-     yield console.log('$$EditOrder page  before response$',orderId)
+    //  yield console.log('$$EditOrder page  before response$',orderId)
      if(orderId===0){
       yield put(editOrderSuccess({orderItemInfo:[]}));
-    yield console.log("$$EditOrder page  after response$", 212121212);
+    // yield console.log("$$EditOrder page  after response$", 212121212);
 
   }else{
     const response = yield call(editOrderID, orderId);

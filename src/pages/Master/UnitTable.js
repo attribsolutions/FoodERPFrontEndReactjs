@@ -5,11 +5,12 @@ export default function UnitTable(props) {
   const ref = React.useRef();
   let baseUN = '';
   const [baseUnit, setbaseUnit] = useState([]);
+  const [val, setVal] = useState();
 
   useEffect(() => {
     setbaseUnit(props.data);
+    setVal('')    
   }, [props]);
-
 
   return (
     // baseUnit.length > 0 ?
@@ -18,7 +19,7 @@ export default function UnitTable(props) {
         <thead>
           <tr>
             <th> UnitName</th>
-            <th>Conersion</th>
+            <th>Conversion</th>
             <th>Base Unit</th>
             <th>default</th>
           </tr>
@@ -34,9 +35,9 @@ export default function UnitTable(props) {
                       <input
                         type="text"
                         className="col-sm-3"
-                        Value={unit.defaultValue ===1? 1 : ''}
+                        Value={unit.defaultValue}
                       />
-                      
+                      {/* <input type="text" value={val} /> */}
                     </div>
                     <div class="col-md-4">
                       <Label>{unit.defaultValue}</Label>

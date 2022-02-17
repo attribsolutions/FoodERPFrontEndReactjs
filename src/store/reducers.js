@@ -17,6 +17,7 @@ import orders from "./OrderPage/reducer";
 import Pages from "./admin/Pages/reducer";
 
 import addMaster from "./Master/reducer";
+import ModuleId from "./PageMaster/reducer"
 
 //End
 
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
   orders,
   Pages,
   addMaster,
+  ModuleId,
 });
 
 export default rootReducer;

@@ -5,6 +5,7 @@ import {
   LOGOUT_USER_SUCCESS,
   API_ERROR,
   SOCIAL_LOGIN,
+  LOGIN_SUCCESS_DATA,
 } from "./actionTypes"
 
 export const loginUser = (user, history) => {
@@ -48,3 +49,10 @@ export const socialLogin = (data, history, type) => {
     payload: { data, history, type },
   }
 }
+export const loginSuccessData = loginData => {
+  return {
+    type: LOGIN_SUCCESS_DATA,
+    payload: loginData,
+  }
+}
+

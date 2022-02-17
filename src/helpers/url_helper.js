@@ -7,6 +7,8 @@ export const POST_FAKE_JWT_LOGIN = "/post-jwt-login"
 export const POST_FAKE_PASSWORD_FORGET = "/fake-forget-pwd"
 export const POST_FAKE_JWT_PASSWORD_FORGET = "/jwt-forget-pwd"
 export const SOCIAL_LOGIN = "/social-login"
+export const SIMPLE_LOGIN = "/Login/CheckValidUser"
+
 
 //PROFILE
 export const POST_EDIT_JWT_PROFILE = "/post-jwt-profile"
@@ -72,8 +74,7 @@ export const GET_SHOPS = "/shops"
 export const GET_WALLET = "/wallet"
 export const GET_CRYPTO_ORDERS = "/crypto/orders"
 
-//INVOICES
-export const GET_INVOICES = "/invoices"
+
 export const GET_INVOICE_DETAIL = "/invoice"
 
 //ORDERS
@@ -89,8 +90,22 @@ export const DELETE_ORDER_ID ="/Order/deleteOrderUserByID?OrderID"
 export const POST_BASE_UNIT ="/MUnits"
 export const GET_ITEM_CATEGORY ="/CItemCategories"
 export const GET_ITEM_SUB_CATEGORY ="/CItemSubCategories"
-export const SUBMIT_ORDER_LIST ="/"
+export const SUBMIT_ORDER_LIST ="/Order/AddOrder"
 
+//ListMaster
+export const GET_INVOICES =  "/HPagesList"//"/HModules"//// "/invoiceList" // 
+export const POST_INVOICE =  "/Order/AddOrder"// "/HPages" //
+export const DELETE_INVOICE = "/HPages"
+export const EDIT_INVOICE = "/HPages"//"/HPages"
+
+
+//PAGE 
+export const GET_DEFAULT_MODULE="/HModules"
+export const POST_MODULE_ID="/HModules"
+
+export const POST_SUB_MODULE="/HSubModules"
+export const POST_ADD_PAGE="/HPages"
+export const GET_PAGE_ACCESS="/HPageAccessNames"
 
 
 

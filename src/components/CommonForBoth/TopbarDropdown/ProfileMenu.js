@@ -23,7 +23,7 @@ const ProfileMenu = props => {
   const [username, setusername] = useState("Admin")
 
   useEffect(() => {
-    if (localStorage.getItem("authUser")) {
+    if (localStorage.getItem("AttribUser")) {
       if (process.env.REACT_APP_DEFAULTAUTH === "firebase") {
         const obj = JSON.parse(localStorage.getItem("authUser"))
         setusername(obj.displayName)
@@ -31,8 +31,8 @@ const ProfileMenu = props => {
         process.env.REACT_APP_DEFAULTAUTH === "fake" ||
         process.env.REACT_APP_DEFAULTAUTH === "jwt"
       ) {
-        const obj = JSON.parse(localStorage.getItem("authUser"))
-        setusername(obj.username)
+        const obj = JSON.parse(localStorage.getItem("AttribUser"))
+        setusername(obj.LoginName)
       }
     }
   }, [props.success])
@@ -62,6 +62,11 @@ const ProfileMenu = props => {
             {" "}
             <i className="bx bx-user font-size-16 align-middle me-1" />
             {props.t("Profile")}{" "}
+          </DropdownItem>
+          <DropdownItem tag="a" href="/division">
+            {" "}
+            <i className="bx bx-user font-size-16 align-middle me-1" />
+            {props.t("Back to Division")}{" "}
           </DropdownItem>
           <DropdownItem tag="a" href="auth-lock-screen">
             <i className="bx bx-lock-open font-size-16 align-middle me-1" />

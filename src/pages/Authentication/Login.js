@@ -2,7 +2,7 @@ import PropTypes from "prop-types"
 import MetaTags from "react-meta-tags"
 import React from "react"
 
-import { Row, Col, Alert, Container } from "reactstrap"
+import { Row, Col, Alert, Container, Label } from "reactstrap"
 
 //redux
 import { useSelector, useDispatch } from "react-redux"
@@ -86,13 +86,13 @@ const Login = props => {
                   <div className="d-flex flex-column h-100">
                     <div className="mb-4 mb-md-5 text-center">
                       <Link to="/dashboard" className="d-block auth-logo">
-                        <img src={logo} alt="" height="28" /> <span className="logo-txt">Minia</span>
+                        <img src={logo} alt="" height="28" /> <span className="logo-txt">FoodERP</span>
                       </Link>
                     </div>
                     <div className="auth-content my-auto">
                       <div className="text-center">
                         <h5 className="mb-0">Welcome Back !</h5>
-                        <p className="text-muted mt-2">Sign in to continue to Minia.</p>
+                        <p className="text-muted mt-2">Sign in to continue to FoodERP.</p>
                       </div>
                       <AvForm
                         className="custom-form mt-4 pt-2"
@@ -103,14 +103,15 @@ const Login = props => {
                         {error ? <Alert color="danger">{error}</Alert> : null}
                         <div className="mb-3">
                           <AvField
-                            name="email"
-                            label="Email"
-                            value="admin@themesbrand.com"
+                            name="UserName"
+                            label="UseName"
+                            value=""
                             className="form-control"
-                            placeholder="Enter email"
-                            type="email"
+                            placeholder="Enter User Name"
+                            type="text"
                             required
                           />
+                          < AvField hidden  name='CompanyID'  value='1'/>
                         </div>
                         <div className="mb-3">
                           <div className="d-flex align-items-start">
@@ -126,8 +127,8 @@ const Login = props => {
 
                           <div className="mb-3">
                             <AvField
-                              name="password"
-                              value="123456"
+                              name="Password"
+                              value=""
                               type="password"
                               className="form-control"
                               required
@@ -151,7 +152,7 @@ const Login = props => {
                         </div>
                       </AvForm>
 
-                      <div className="mt-4 text-center">
+                      {/* <div className="mt-4 text-center">
                         <h5 className="font-size-14 mb-3">Sign in with</h5>
 
                         <ul className="list-inline">
@@ -194,10 +195,10 @@ const Login = props => {
                       <div className="mt-5 text-center">
                         <p className="text-muted mb-0">Don't have an account ? <Link to="/register"
                           className="text-primary fw-semibold"> Signup now </Link> </p>
-                      </div>
+                      </div> */}
                     </div>
                     <div className="mt-4 mt-md-5 text-center">
-                      <p className="mb-0">© {new Date().getFullYear()} Minia . Crafted with <i className="mdi mdi-heart text-danger"></i> by Themesbrand</p>
+                      <p className="mb-0">© {new Date().getFullYear()} FoodERP . Crafted with <i className="mdi mdi-heart text-danger"></i> by Attrib Solusions.</p>
                     </div>
                   </div>
                 </div>

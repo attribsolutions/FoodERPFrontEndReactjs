@@ -15,6 +15,9 @@ import OrderList from "../pages/Sale/OrderList";
 import PurchaseOrderList from "../pages/Sale/PurchaseOrderList";
 import PageList from "../pages/Admin/PageList"
 import AddItemMaster from "../pages/Master/AddItemMaster";
+import DivisionName from "../pages/Division Page/DivisionName";
+import ListPage from "../pages/PageMaster/ListPage";
+import AddPage from "../pages/PageMaster/AddPage";
 
 
 const userRoutes = [
@@ -30,10 +33,12 @@ const userRoutes = [
   { path: "/orderList", component: OrderList },
   { path: "/porderList", component: PurchaseOrderList },
   { path: "/addItemMaster", component: AddItemMaster },
-
-  //admin
-  //pages
+ 
   { path: "/pageList", component: PageList },
+  { path: "/division", component: DivisionName },
+
+  { path: "/ListPage", component: ListPage },
+   { path: "/AddPage", component: AddPage },
 
   // this route should be at the end of all other routes
   { path: "/", exact: true, component: () => <Redirect to="/dashboard" /> },

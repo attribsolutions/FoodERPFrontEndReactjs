@@ -1,5 +1,5 @@
 import axios from "axios"
-import { del, get, get1, getModify, post, put } from "./api_helper"
+import { del, del1, get, get1, getModify, post, post1, put } from "./api_helper"
 import * as url from "./url_helper"
 
 // Gets the logged in user data from local session
@@ -95,6 +95,8 @@ const postJwtForgetPwd = data => post(url.POST_FAKE_JWT_PASSWORD_FORGET, data)
 
 // postSocialLogin
 export const postSocialLogin = data => post(url.SOCIAL_LOGIN, data)
+ // post simple 
+export const postSimpleLogin = data => post(url.SIMPLE_LOGIN, data)
 
 // get Products
 export const getProducts = () => get(url.GET_PRODUCTS)
@@ -174,7 +176,7 @@ export const getWallet = () => get(url.GET_WALLET)
 export const getCryptoOrder = () => get(url.GET_CRYPTO_ORDERS)
 
 // get invoices
-export const getInvoices = () => get(url.GET_INVOICES)
+
 
 // get invoice details
 export const getInvoiceDetail = id =>
@@ -198,9 +200,46 @@ export const postBaseUnit = () => get1(url.POST_BASE_UNIT)
 export const getItemCategory = () => get1(url.GET_ITEM_CATEGORY)
 
 export const getItemSubCategory = (id) => get1(`${url.GET_ITEM_SUB_CATEGORY}/${id}`)
-export const submitOrderPage = (data) => get1(url.SUBMIT_ORDER_LIST,data)
+export const submitOrderPage = (data) => post(url.SUBMIT_ORDER_LIST,data)
 // get project
 export const getProjects = () => get(url.GET_PROJECTS)
+
+
+
+// get invoices+
+export const getInvoices = () => get1(url.GET_INVOICES)
+export const add = (data) => post1(url.POST_INVOICE,data )
+export const deteletInvoices=(id)=> del1(`${url.DELETE_INVOICE}/${id}` )
+export const editInvoicesPage=(id)=> get1(`${url.EDIT_INVOICE}/${id}` )
+
+
+// export const deleteUser = user => del(url.DELETE_USER, { headers: { user } })
+//
+export const getDefaultModule = () => get1(url.GET_DEFAULT_MODULE)
+export const postDefaultMogeuleId=(id)=> get1(url.POST_MODULE_ID,id)
+
+export const postSubModule=(id)=> get1(`${url.POST_SUB_MODULE}/${id}`)
+export const postAddPage = (data) => post1(url.POST_ADD_PAGE,data )
+
+export const getPageAcess=()=> get1(url.GET_PAGE_ACCESS)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // get project details
 export const getProjectsDetails = id =>

@@ -4,11 +4,13 @@ import {
   LOGOUT_USER,
   LOGOUT_USER_SUCCESS,
   API_ERROR,
+  LOGIN_SUCCESS_DATA,
 } from "./actionTypes"
 
 const initialState = {
   error: "",
   loading: false,
+  loginData: [],
 }
 
 const login = (state = initialState, action) => {
@@ -25,6 +27,11 @@ const login = (state = initialState, action) => {
         loading: false,
       }
       break
+    case LOGIN_SUCCESS_DATA:
+      state = {
+        ...state,
+        loginData: action.payload,
+      }
     case LOGOUT_USER:
       state = { ...state }
       break
@@ -37,6 +44,7 @@ const login = (state = initialState, action) => {
     default:
       state = { ...state }
       break
+
   }
   return state
 }

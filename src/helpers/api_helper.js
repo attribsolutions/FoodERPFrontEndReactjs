@@ -59,5 +59,24 @@ export async function del(url, config = {}) {
 
 
 export async function get1(url, config = {}) {
-  return await axiosApi1.get(url, { ...config }).then(response => response.data)
-}
+  return await axiosApi1.get(url, { ...config }).then(response => response.data.data)
+  }
+  
+  export async function post1(url, data, config = {}) {
+    return axiosApi1
+      .post(url,data, { ...config })
+      .then(response => response.data)
+  }
+  
+  export async function put1(url, data, config = {}) {
+    return axiosApi1
+      .put(url, { ...data }, { ...config })
+      .then(response => response.data)
+  }
+  
+  export async function del1(url, config = {}) {
+    return await axiosApi1
+      .delete(url, { ...config })
+      .then(response => response.data)
+  }
+  

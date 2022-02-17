@@ -2,16 +2,16 @@ import { call, put, takeEvery, takeLatest } from "redux-saga/effects"
 
 // Login Redux States
 import { LOGIN_USER, LOGOUT_USER, SOCIAL_LOGIN } from "./actionTypes"
-import { apiError, loginSuccess, logoutUserSuccess } from "./actions"
+import { apiError, loginSuccess, loginSuccessData, logoutUserSuccess } from "./actions"
 
 //Include Both Helper File with needed methods
 import { getFirebaseBackend } from "../../../helpers/firebase_helper"
 import {
   postJwtLogin,
+  postSimpleLogin,
   postSocialLogin,
 } from "../../../helpers/fakebackend_helper"
-import users from "../../../helpers/AuthType/fakeBackend"
-
+import { useHistory } from "react-router-dom";
 const fireBaseBackend = getFirebaseBackend()
 
 function* loginUser({ payload: { user, history } }) {
@@ -30,29 +30,50 @@ function* loginUser({ payload: { user, history } }) {
       })
       localStorage.setItem("authUser", JSON.stringify(response))
       yield put(loginSuccess(response))
-    } else if (process.env.REACT_APP_DEFAULTAUTH === "fake") {
-     
     }
-    //  const response = yield call(postFakeLogin, {
-    //     email: user.email,
-    //     password: user.password,
-    //   })
-      localStorage.setItem("authUser", JSON.stringify(users))
-      yield put(loginSuccess(users))
-    history.push("/dashboard")
+    else if (process.env.REACT_APP_DEFAULTAUTH === "fake") {
+      try {
+        // console.log("login data",user)
+        const response = yield call(postSimpleLogin, user)
+        // console.log("login response", response.data);
+        yield put(loginSuccessData(response.data));
+        yield put(loginSuccess(response))
+        localStorage.setItem("AttribUser", JSON.stringify({ "UserName": response.data.UserName, "UserID": response.data.UserID, }))
+        localStorage.setItem("divisions",JSON.stringify(response.data.Divisions));
+        localStorage.setItem("UserID",JSON.stringify(response.data.UserID));
+        localStorage.setItem("RollID",JSON.stringify(response.data.roleID));
+        localStorage.setItem("DivisionID",JSON.stringify(response.data.DivisionID));
+
+       const Dlenght= response.data.Divisions;
+
+        if (!Dlenght.length > 1) {
+        //  localStorage.setItem("DivisionID",JSON.stringify(response.data.Divisions));
+        history.push("/dashboard")
+          
+        } else {
+          history.push("/division")
+          
+        }
+      } catch (e) {
+        console.log("error", e)
+      }
+    }
   } catch (error) {
     yield put(apiError(error))
+    console.log("error", error)
   }
 }
 
 function* logoutUser({ payload: { history } }) {
+
   try {
     localStorage.removeItem("authUser")
-
     if (process.env.REACT_APP_DEFAULTAUTH === "firebase") {
       const response = yield call(fireBaseBackend.logout)
       yield put(logoutUserSuccess(response))
+
     }
+    yield localStorage.clear();
     history.push("/login")
   } catch (error) {
     yield put(apiError(error))
@@ -87,4 +108,4 @@ function* authSaga() {
   yield takeEvery(LOGOUT_USER, logoutUser)
 }
 
-export default authSaga
+export default authSaga;

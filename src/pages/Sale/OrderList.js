@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, connect } from "react-redux";
+import { useDispatch, connect, useSelector } from "react-redux";
 import { Button, Input } from "reactstrap";
 import Breadcrumbs from "../../components/Common/Breadcrumb";
 import Select from "react-select";
@@ -15,8 +15,8 @@ import {
 } from "reactstrap";
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
-// store action import
-import { deleteOrder, getOrderList } from "../../store/actions";
+import { deleteOrder, editOrder, getOrderList } from "../../store/actions";
+import generate from "../../Reports/Page"
 const OrderList = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -50,6 +50,9 @@ const OrderList = (props) => {
   const orders = props.orderList;
   const customerNameOption = props.orderList;
 
+  const { editOrderData, } = useSelector((state) => ({
+    editOrderData: state.orders.editOrderData.orderItemInfo,
+  }));
   function goHandeller() {
     const orderlistInitial = {
       FromDate: !fromDate ? fromDateIn : fromDate,
@@ -58,6 +61,13 @@ const OrderList = (props) => {
       DivisionID: 3,
     };
     dispatch(getOrderList(orderlistInitial));
+  }
+  function OnPritHandeller(id){
+    dispatch(editOrder(id));
+    if(!(editOrderData.length===0)){
+      console.log("datataat",editOrderData)
+      generate(editOrderData)
+    }
   }
   return (
     <React.Fragment>
@@ -164,7 +174,8 @@ const OrderList = (props) => {
                                   <buton
                                     className="badge badge-soft-primary font-size-12"
                                     onClick={() => {
-                                      generate()}}
+                                     OnPritHandeller(item.OrderID)
+                                    }}
                                   >
                                     Print
                                   </buton>
@@ -182,7 +193,7 @@ const OrderList = (props) => {
                                     </div>
                                   ) : (
                                     <div className=" badge badge-soft-warning font-size-12">
-                                      inprograce
+                                       in progress
                                     </div>
                                   )}
                                 </Td>

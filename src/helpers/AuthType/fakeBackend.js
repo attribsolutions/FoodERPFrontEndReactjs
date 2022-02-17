@@ -34,11 +34,11 @@
 
  const users = [
   {
-    uid: 1,
-    username: "admin",
-    role: "admin",
-    password: "123456",
-    email: "admin@themesbrand.com",
+    // uid: 0,
+    // username: "",
+    // role: "",
+    // password: "",
+    // email: "",
   },
 ]
 export default users;

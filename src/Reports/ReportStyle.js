@@ -1,4 +1,4 @@
-import chitaleLogo from "../assets/images/chitaleLogo.jpg"
+import reportHederPng from "../assets/images/reportHeder.png"
 import * as table from './TableData'
 
 export const pageBorder = (doc) => {
@@ -8,7 +8,7 @@ export const pageBorder = (doc) => {
     doc.line(575, 830, 575, 10);//vertical right 
 }
 export const pageHeder = (doc) => {
-    doc.addImage(chitaleLogo, 'PNG', 250, 18, 65, 40);
+    doc.addImage(reportHederPng, 'PNG', 250, 18, 65, 40);
     doc.setFont('Tahoma', 'Normal')
     doc.setFontSize(9)
     doc.text('CHITALE SWEETS & SNACKS PVT.LTD.', 32, 30)
@@ -77,7 +77,7 @@ export const reportHeder2 = (doc) => {
 }
 
 export const tableBody = (doc, data) => {
-    var res = doc.autoTableHtmlToJson(document.getElementById("basic-table"));
+    // var res = doc.autoTableHtmlToJson(document.getElementById("basic-table"));
     var reportHead = function () {
         pageBorder(doc);
         if (!(doc.internal.getNumberOfPages() === 1)) {
@@ -159,7 +159,7 @@ export const tableBody = (doc, data) => {
         theme: 'grid',
         headStyles: {
             textColor: "black",
-            fillColor: "yellow"
+            fillColor: "gray"
         },
         styles: {
             overflow: 'hidden',

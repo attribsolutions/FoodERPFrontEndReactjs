@@ -16,11 +16,11 @@ import { addMasterListMessage, getItemCategorySuccess, getItemSubCategorySuccess
 
 function* BaseUnit() {
   try {
-    // console.log('$$PostBaseUnit  bfore  page response$')
+    console.log('$$PostBaseUnit  bfore  page response$')
      
     const response = yield call(postBaseUnit);
-    yield put(postBaseUnitSuccess(response.message));
-    //  console.log('$$PostBaseUnit after page response$',response)
+    yield put(postBaseUnitSuccess(response));
+     console.log('$$PostBaseUnit after page response$',response)
   } catch (error) {
     console.log("$$PostBaseUnit  saga page error$", error);
   }
@@ -40,8 +40,8 @@ function* getItemCategorySaga() {
   try {
      yield console.log('$$ getItemCategory page  before response$')
     const response = yield call(getItemCategory);
-    yield console.log("$$getItemCategory page  after response$", response);
-    yield put(getItemCategorySuccess(response.message));
+    yield console.log("$$getItemCategory page  after response$",response );
+    yield put(getItemCategorySuccess(response));
   } catch (error) {
     console.log("$$getItemCategory _saga_page  #@ error$", error);
   }
@@ -51,8 +51,8 @@ function* ItemSubCategory({itemId}) {
   try {
      yield console.log('$$ getItemSubCategory page  before response$',itemId)
     const response = yield call(getItemSubCategory,itemId);
-    yield console.log("$$getItemSubCategory page  after response$", response.addMasterListMessage);
-    yield put(getItemSubCategorySuccess(response.data));
+    yield console.log("$$getItemSubCategory page  after response$", response);
+    yield put(getItemSubCategorySuccess(response));
   } catch (error) {
     console.log("$$getItemSubCategory _saga_page  #@ error$", error);
   }
