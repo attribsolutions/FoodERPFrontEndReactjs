@@ -46,7 +46,7 @@ const ListPage = () => {
     // console.log(id)
     dispatch(editInvoiceId(id));
     history.push({ 
-      pathname: "/addPage",
+      pathname:"/addPage",
       state: id
      })
   };

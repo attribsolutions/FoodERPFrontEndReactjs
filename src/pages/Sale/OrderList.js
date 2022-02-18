@@ -16,7 +16,7 @@ import {
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 import { deleteOrder, editOrder, getOrderList } from "../../store/actions";
-import generate from "../../Reports/Page"
+import generate from "../../Reports/PageListReport/Page"
 const OrderList = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
