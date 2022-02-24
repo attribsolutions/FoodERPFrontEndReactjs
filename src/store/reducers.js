@@ -18,6 +18,9 @@ import Pages from "./admin/Pages/reducer";
 
 import addMaster from "./Master/reducer";
 import ModuleId from "./PageMaster/reducer"
+import demo from "./DemoRedux/reducer" 
+import Exam from "./ExamRedux/reducer"
+
 
 //End
 
@@ -33,6 +36,8 @@ const rootReducer = combineReducers({
   Pages,
   addMaster,
   ModuleId,
+  demo,
+  Exam,
 });
 
 export default rootReducer;

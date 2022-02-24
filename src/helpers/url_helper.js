@@ -108,6 +108,12 @@ export const POST_ADD_PAGE="/HPages"
 export const GET_PAGE_ACCESS="/HPageAccessNames"
 
 
+//punam demo api url
+
+export const GET_PAGE_SUCCESS="/Order/GetItemListByDivisionID?DivisionID=3"////  new API url for demo
+
+
+
 
 //PAGES
 export const GET_PAGES = "/HPageMaster/GetPagelist"

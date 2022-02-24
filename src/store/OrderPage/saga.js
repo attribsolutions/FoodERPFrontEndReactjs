@@ -26,6 +26,7 @@ import {
   UPDATE_ORDER,
   DELETE_ORDER,
 } from "./actionType";
+
 function* fetchOrdedr() {
   try {
     const response = yield call(getOrderPage);
@@ -35,6 +36,7 @@ function* fetchOrdedr() {
     console.log("$$fetchorder  saga page error$", error);
   }
 }
+
 function* submitOrder({ data }) {
   try {
     //  yield console.log('$$submitOrder page  before response$',data)

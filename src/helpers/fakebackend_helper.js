@@ -223,8 +223,10 @@ export const postAddPage = (data) => post1(url.POST_ADD_PAGE,data )
 
 export const getPageAcess=()=> get1(url.GET_PAGE_ACCESS)
 
+//punam api  method
+export const demApiAxios=()=> get(url. GET_PAGE_SUCCESS)
 
-
+export const ExamApiAxios=()=> get(url.GET_PAGE_SUCCESS)
 
 
 

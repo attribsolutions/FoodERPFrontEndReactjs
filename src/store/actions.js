@@ -19,6 +19,9 @@ export * from "./admin/Pages/actions"
 
 export * from "./Master/actions"
 export * from "./PageMaster/Actions"
+export * from "./DemoRedux/actions"///new
+export * from "./ExamRedux/actions"
+
 
 
 
