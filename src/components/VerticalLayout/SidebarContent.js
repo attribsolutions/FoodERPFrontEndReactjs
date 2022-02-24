@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { useEffect, useRef, useCallback } from "react";
+import React, { useEffect, useRef, useCallback, useState } from "react";
 
 //Import Icons
 import FeatherIcon from "feather-icons-react";
@@ -20,6 +20,7 @@ import { Link } from "react-router-dom";
 
 const SidebarContent = (props) => {
   const ref = useRef();
+const [RollData,setRollData]=useState([{RoleAccessList:[]}]);
 
   const activateParentDropdown = useCallback((item) => {
     item.classList.add("active");
@@ -93,77 +94,40 @@ const SidebarContent = (props) => {
       }
     }
   }
+  const rollD = JSON.parse(localStorage.getItem('RollAceess'));
+  if(!rollD===undefined){
+setRollData(rollD);
+  }
+ console.log(RollData,'RollData')
   return (
     <React.Fragment>
-      <div style={{ marginLeft:"45px",marginTop:"10px"}}>
-       <img src={giftBox} alt=""/>
+      <div style={{ marginLeft: "45px", marginTop: "10px" }}>
+        <img src={giftBox} alt="" />
       </div>
       <SimpleBar style={{ maxHeight: "100%" }} ref={ref}>
         <div id="sidebar-menu">
           <ul className="metismenu list-unstyled" id="side-menu">
-            <li className="menu-title">{props.t("Menu")} </li>
-            <li>
-              <Link to="/dashboard" className="">
-                <FeatherIcon icon="home" />
-                <span>{props.t("Dashboard")}</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/#" className="has-arrow">
-                <FeatherIcon icon="grid" />
-                <span>{props.t("Administrator")}</span>
-              </Link>
-              <ul className="sub-menu">
+
+            {RollData.map((item) => {
+              return (<React.Fragment>
                 <li>
-                  <Link to="/pageList">{props.t("Page List")}</Link>
+                  <Link to="/#" className="has-arrow">
+                    <span>{props.t(item.ModuleName)}</span>
+                  </Link>
+                  <ul className="sub-menu">
+                    {item.RoleAccessList.map((i) => {
+                      return (
+                        <li>
+                          <Link to="/pageList">{props.t(i.PageName)}</Link>
+                        </li>
+                      )
+                    })}
+                  </ul>
                 </li>
-                {/* <li>
-                  <Link to="/orderList">{props.t("Order List")}</Link>
-                </li> */}
-              </ul>
-            </li>
-            <li>
-              <Link to="/#" className="has-arrow">
-                <FeatherIcon icon="grid" />
-                <span>{props.t("Apps")}</span>
-              </Link>
-              <ul className="sub-menu">
-                <li>
-                  <Link to="/order">{props.t("Order")}</Link>
-                </li>
-                <li>
-                  <Link to="/orderList">{props.t("Order List")}</Link>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <Link to="/#" className="has-arrow">
-                <FeatherIcon icon="grid" />
-                <span>{props.t("Page Master")}</span>
-              </Link>
-              <ul className="sub-menu">
-                <li>
-                  <Link to="/AddPage">{props.t("AddPage")}</Link>
-                </li>
-                <li>
-                  <Link to="/listPage">{props.t("ListPage")}</Link>
-                </li>
-              </ul>
-            </li>
-            
-            <li>
-              <Link to="/#" className="has-arrow">
-                <FeatherIcon icon="grid" />
-                <span>{props.t("ItemMaster")}</span>
-              </Link>
-              <ul className="sub-menu">
-                <li>
-                  <Link to="/addItemMaster">{props.t(" Add Item Master")}</Link>
-                </li>
-              
-              </ul>
-            </li>
-            <li></li>
+              </React.Fragment>
+              )
+            })
+            }
           </ul>
         </div>
       </SimpleBar>

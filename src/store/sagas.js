@@ -20,7 +20,7 @@ import examSaga from "./ExamRedux/saga"
 
 export default function* rootSaga() {
   yield all([
-    //public
+   
     fork(AccountSaga),
     fork(AuthSaga),
     fork(ForgetSaga),
@@ -33,7 +33,5 @@ export default function* rootSaga() {
     fork(moduleIdSaga),
     fork(demoSaga),
     fork (examSaga),
-
-    
   ])
 }

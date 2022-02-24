@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Select from "react-select";
 import { useHistory } from "react-router-dom";
-import { useSelector } from 'react-redux';
-import { Button, Card, Col, Container, Row } from 'reactstrap'
-
-
+import { Button, Card, CardBody, Col, Container, Row } from 'reactstrap'
 
 export default function DivisionName() {
     const [divisionData, setDivisionData] = useState([]);
@@ -14,8 +11,6 @@ export default function DivisionName() {
         const dr = JSON.parse(localStorage.getItem('divisions'));
         setDivisionData(dr);
     }, [])
-
-
 
     const divisionOptions = divisionData.map((d) => ({
         value: d.DivisionID,
@@ -30,13 +25,13 @@ export default function DivisionName() {
 
     return (
         <React.Fragment>
-            <div className="page-content">
+            <div className="page-content" style={{height:"400px"}}>
                 <Container fluid>
-                    <div>
+                    <Card>
+                        <CardBody >
 
-                        <Row className="mb-6">
-                            <Col>
-                                <div  >
+                            <Row className="mb-12" >
+                                <Col  lg="4">
                                     <Select
                                         value={division}
                                         required
@@ -45,17 +40,13 @@ export default function DivisionName() {
                                             OnChangeHandller(e);
                                         }}
                                     />
-                                </div>
-                            </Col>
-                            <Col className="mb-4">
-                                <div className="col-lg-6">
-                                    <Button> Go</Button>
-                                </div>
-
-                            </Col>
-                        </Row>
-
-                    </div>
+                                </Col>
+                                <Col lg="8">
+                                    <Button  className="btn btn-info" style ={{float:"right"}}> Go</Button>
+                                </Col>
+                            </Row>
+                        </CardBody>
+                    </Card>
                 </Container>
             </div>
         </React.Fragment>
