@@ -18,9 +18,8 @@ import AddItemMaster from "../pages/Master/AddItemMaster";
 import DivisionName from "../pages/Division Page/DivisionName";
 import ListPage from "../pages/PageMaster/ListPage";
 import AddPage from "../pages/PageMaster/AddPage";
-import DemoSubmit from "../pages/Demo/DemoSubmit";
-import Example from "../pages/Sample/Example";
-import NewPartyAdd from "../pages/Master/NewPartyAdd";
+
+
 const userRoutes = [
 
   //dashboard
@@ -34,15 +33,12 @@ const userRoutes = [
   { path: "/orderList", component: OrderList },
   { path: "/porderList", component: PurchaseOrderList },
   { path: "/addItemMaster", component: AddItemMaster },
-
+ 
   { path: "/pageList", component: PageList },
   { path: "/division", component: DivisionName },
 
   { path: "/ListPage", component: ListPage },
-  { path: "/AddPage", component: AddPage },
-  { path: '/demo', component: DemoSubmit } , 
-  { path: '/Sample',component:Example},      
-  {path:'/newParty',component:NewPartyAdd},    
+   { path: "/AddPage", component: AddPage },
 
   // this route should be at the end of all other routes
   { path: "/", exact: true, component: () => <Redirect to="/dashboard" /> },

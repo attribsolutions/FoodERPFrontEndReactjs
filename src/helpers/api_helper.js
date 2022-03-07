@@ -6,7 +6,7 @@ const token = accessToken
 
 //apply base url for axios0
 const API_URL = "http://web.chitalebandhu.in:8080/FoodERPBackEND/api"
-const API_URL1 = "http://192.168.1.114:8000"
+const API_URL1 = "http://127.0.0.1:8000"
 
 
 const axiosApi = axios.create({

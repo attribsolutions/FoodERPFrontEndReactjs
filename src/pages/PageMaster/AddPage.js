@@ -9,7 +9,7 @@ import {
   Row,
   CardHeader,
   Button,
-  Label, Input
+  Label,Input
 } from "reactstrap";
 
 import {
@@ -27,7 +27,7 @@ import {
   addPage,
   getDefaultModule,
 } from "../../store/PageMaster/Actions";
-
+import Breadcrumbs from "../../components/Common/Breadcrumb";
 const AddPage = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -49,7 +49,7 @@ const AddPage = (props) => {
   const EditId = props.invoices.editInvoicesData;
 
   // console.log("EditId",EditId)
-  // console.log("displayIndex",displayIndex)
+// console.log("displayIndex",displayIndex)
   useEffect(() => {
     //  if(edit>0)
     //  {
@@ -111,11 +111,11 @@ const AddPage = (props) => {
     label: d.Name,
   }));
   const optionPageAccess =
-    props.ModuleId.PageAccessData.map((d) => ({
-      value: d.ID,
-      label: d.Name,
-    }));
-
+  props.ModuleId.PageAccessData.map((d) => ({
+    value: d.ID,
+    label: d.Name,
+  }));
+  
   function handleSelectGroup(selectID) {
     setModuleId(selectID);
     dispatch(postSubModule(selectID.value));
@@ -130,13 +130,13 @@ const AddPage = (props) => {
   }
 
   const handleValidSubmit = (event, values) => {
-
+   
 
     const requestOptions = {
       body: JSON.stringify({
         NameOnMenu: values.NameOnMenu,
         Description: values.Discription,
-        DisplayIndex: pagetype,
+        DisplayIndex:pagetype,
         DefaultModuleID: moduleId.value,
         DefaultSubModuleID: subModule.value,
         ActualPagePath: values.ActualPagepath,
@@ -152,21 +152,22 @@ const AddPage = (props) => {
     history.push("/listPage");
   };
 
-
-  console.log("props", props)
+ 
+console.log("props",props)
   const BackPageNave = () => {
     history.push("/listPage");
   };
   return (
     <React.Fragment>
       <div className="page-content">
+      <Breadcrumbs  breadcrumbItem={"Add Page "}  />
         <Container fluid>
           <Row>
             <Col lg={12}>
               <Card>
-                <CardHeader>
+                {/* <CardHeader>
                   <h4 className="card-title">Add Page</h4>
-                </CardHeader>
+                </CardHeader> */}
                 <CardBody>
                   <AvForm
                     onValidSubmit={(e, v) => {
@@ -218,11 +219,11 @@ const AddPage = (props) => {
                         </Label>
                         <Col sm={4}>
                           <Input
-                            type="number"
+                          type="number"
                             name="DisplayIndex"
                             value={displayIndex}
                             required
-                            onChange={(v) => { setDisplayIndex(v.target.value); }}
+                            onChange={(v)=>{setDisplayIndex(v.target.value); }}
                           />
                           <AvFeedback>Requred Display Index!</AvFeedback>
                         </Col>
@@ -238,6 +239,7 @@ const AddPage = (props) => {
                           value={moduleId}
                           options={optionGroup}
                           onChange={(e) => {
+                            // setModuleId(e)
                             handleSelectGroup(e);
                           }}
                           required
@@ -288,8 +290,8 @@ const AddPage = (props) => {
                           type="checkbox"
                           value={pagetype}
                           name="Pagetype"
-                          onSelect={() => {
-                            if (pagetype === 1) { setPagetype(0) } else { setPagetype(1) }
+                          onSelect={()=>{
+                          if(pagetype===1){setPagetype(0)}else{setPagetype(1)}
                           }}
                           className="form-control"
                           id="horizontal-customCheck"
@@ -324,7 +326,7 @@ const AddPage = (props) => {
                           value={topOfTheDivisionPage}
                           type="checkbox"
                           className="form-control"
-                          onClick={() => { if (pagetype === 1) { setPagetype(0) } else { setPagetype(1) } }}
+                          onClick={()=>{ if(pagetype===1){setPagetype(0)}else{setPagetype(1)}}}
                         />
                       </Col>
                     </Row>

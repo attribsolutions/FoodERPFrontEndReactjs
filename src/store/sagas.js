@@ -13,14 +13,13 @@ import orderSaga from "./OrderPage/saga"
 import PagesSaga from "./admin/Pages/saga"
 import masterSaga from "./Master/saga"
 import moduleIdSaga from "./PageMaster/saga"
-import demoSaga from "./DemoRedux/saga"
-import examSaga from "./ExamRedux/saga"
+
 
 //End
 
 export default function* rootSaga() {
   yield all([
-   
+    //public
     fork(AccountSaga),
     fork(AuthSaga),
     fork(ForgetSaga),
@@ -31,7 +30,6 @@ export default function* rootSaga() {
     fork(PagesSaga),
     fork(masterSaga),
     fork(moduleIdSaga),
-    fork(demoSaga),
-    fork (examSaga),
+    
   ])
 }

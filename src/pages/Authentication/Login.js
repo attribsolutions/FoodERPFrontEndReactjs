@@ -198,7 +198,7 @@ const Login = props => {
                       </div> */}
                     </div>
                     <div className="mt-4 mt-md-5 text-center">
-                      <p className="mb-0">© {new Date().getFullYear()} FoodERP . Crafted with <i className="mdi mdi-heart text-danger"></i> by Attrib Solutions.</p>
+                      <p className="mb-0">© {new Date().getFullYear()} FoodERP . Crafted with <i className="mdi mdi-heart text-danger"></i> by Attrib Solusions.</p>
                     </div>
                   </div>
                 </div>

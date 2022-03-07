@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "reactstrap";
 import { useHistory } from "react-router-dom";
-
+import Breadcrumbs from "../../components/Common/Breadcrumb";
 import {
   Card,
   CardBody,
@@ -46,7 +46,7 @@ const ListPage = () => {
     // console.log(id)
     dispatch(editInvoiceId(id));
     history.push({ 
-      pathname:"/addPage",
+      pathname: "/addPage",
       state: id
      })
   };
@@ -137,8 +137,8 @@ const optionGroup = invoices.map(d => ({
 
    
     {
-      text: "Custmise",
-      dataField: "Custmise",
+      text: "Actions",
+      dataField: "Actions",
       sort: true,
       formatter: (cellContent, invoices) => (
         <>
@@ -154,7 +154,7 @@ const optionGroup = invoices.map(d => ({
               data-toggle="modal"
               data-target=".bs-example-modal-lg"
             >
-              Edit
+              <i class="mdi mdi-pencil font-size-18" id="edittooltip"></i>
             </Button>{" "}
             <Button
              className="me-2 bg-danger badge badge-secondary"
@@ -162,7 +162,15 @@ const optionGroup = invoices.map(d => ({
                 deleteInvoiceHandeler(invoices.ID);
               }}
             >
-              Delete
+              <i class="mdi mdi-delete font-size-18" ></i>
+            </Button>
+            <Button
+             className="me-2 bg-danger badge badge-secondary"
+              onClick={() => {
+                deleteInvoiceHandeler(invoices.ID);
+              }}
+            >
+              <i class="mdi mdi-delete font-size-18" ></i>
             </Button>
           </div>
         </>
@@ -172,6 +180,7 @@ const optionGroup = invoices.map(d => ({
 
   return ( <React.Fragment>
     <div className="page-content">
+    <Breadcrumbs title={"Count :"} breadcrumbItem={"Page List "} breadcrumbCount={invoices.length} />
       <Container fluid>
         {/* Render Breadcrumbs */}
       
@@ -195,14 +204,17 @@ const optionGroup = invoices.map(d => ({
                         <React.Fragment>
                           <Row className="mb-2">
                            
-                            <Col sm="4">
+                            <Col sm="11">
                               <div className="search-box d-inline-block">
                                 <div className="position-relative">
                                   <SearchBar {...toolkitProps.searchProps} />{"              "}
-                                  < Button  onClick={()=>AddPageHandler()}>Add</Button>
+                                
                                   <i className="bx bx-search-alt search-icon-search" />
                                 </div>
                               </div>
+                            </Col>
+                            <Col sm="1" >
+                               < Button  onClick={()=>AddPageHandler()}>Add</Button>
                             </Col>
                           </Row>
                           <Row>

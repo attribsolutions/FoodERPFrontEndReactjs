@@ -1,3 +1,0 @@
- 
- export const GET_DEMO_API="GET_DEMO_API"
- export const GET_DEMO_API_SUCCESS="GET_DEMO_API_SUCCESS"

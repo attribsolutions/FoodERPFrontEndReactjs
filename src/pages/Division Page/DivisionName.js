@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import Select from "react-select";
 import { useHistory } from "react-router-dom";
-import { Button, Card, CardBody, Col, Container, Row } from 'reactstrap'
+import { useSelector } from 'react-redux';
+import { Button, Card, Col, Container, Row } from 'reactstrap'
+
+
 
 export default function DivisionName() {
     const [divisionData, setDivisionData] = useState([]);
@@ -11,6 +14,8 @@ export default function DivisionName() {
         const dr = JSON.parse(localStorage.getItem('divisions'));
         setDivisionData(dr);
     }, [])
+
+
 
     const divisionOptions = divisionData.map((d) => ({
         value: d.DivisionID,
@@ -25,13 +30,13 @@ export default function DivisionName() {
 
     return (
         <React.Fragment>
-            <div className="page-content" style={{height:"400px"}}>
+            <div className="page-content">
                 <Container fluid>
-                    <Card>
-                        <CardBody >
+                    <div>
 
-                            <Row className="mb-12" >
-                                <Col  lg="4">
+                        <Row className="mb-6">
+                            <Col>
+                                <div  >
                                     <Select
                                         value={division}
                                         required
@@ -40,13 +45,17 @@ export default function DivisionName() {
                                             OnChangeHandller(e);
                                         }}
                                     />
-                                </Col>
-                                <Col lg="8">
-                                    <Button  className="btn btn-info" style ={{float:"right"}}> Go</Button>
-                                </Col>
-                            </Row>
-                        </CardBody>
-                    </Card>
+                                </div>
+                            </Col>
+                            <Col className="mb-4">
+                                <div className="col-lg-6">
+                                    <Button> Go</Button>
+                                </div>
+
+                            </Col>
+                        </Row>
+
+                    </div>
                 </Container>
             </div>
         </React.Fragment>

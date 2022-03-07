@@ -19,7 +19,7 @@ export default function UnitTable(props) {
         <thead>
           <tr>
             <th> UnitName</th>
-            <th>Conversion</th>
+            <th>Conersion</th>
             <th>Base Unit</th>
             <th>default</th>
           </tr>

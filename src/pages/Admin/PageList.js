@@ -13,7 +13,7 @@ import Breadcrumbs from "../../components/Common/Breadcrumb";
 
 import paginationFactory, {
     PaginationListStandalone,
-    PaginationProvider, SizePerPageDropdownStandalone,
+    PaginationProvider,SizePerPageDropdownStandalone,
 } from "react-bootstrap-table2-paginator";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import BootstrapTable from "react-bootstrap-table-next";
@@ -25,13 +25,21 @@ const PagesList = () => {
     const dispatch = useDispatch();
     const { SearchBar } = Search;
 
+
     useEffect(() => {
+        //   const orderlistInitial = {
+        //     FromDate: '2022-01-25',
+        //     ToDate: '2022-01-25',
+        //     CustomerID: 0,
+        //     DivisionID: 3
+        //   }; 
         dispatch(onGetPages());
     }, [dispatch]);
     const { pages } = useSelector((state) => ({
         pages: state.Pages.pages.data,
     }));
-
+    //const pages=[] ;
+    //    console.log("bj="+pages);
 
     const pageOptions = {
         sizePerPage: 15,
@@ -45,6 +53,10 @@ const PagesList = () => {
             order: "desc", // desc or asc
         },
     ];
+
+    // const selectRow = {
+    //     mode: "checkbox",
+    // };
 
     const pagesListColumns = [
         {
@@ -169,10 +181,10 @@ const PagesList = () => {
                                                                     />
                                                                 </div>
                                                             </Col>
-
+                                                           
                                                         </Row>
                                                         <br></br>
-
+                                                          
                                                         {/* <Row>
                                                             <Col xl="12">
                                                                 <div className="table-responsive">
